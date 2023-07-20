@@ -55,8 +55,8 @@ bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill picom
-bindsym $mod+Ctrl+t exec --no-startup-id picom -b
+#bindsym $mod+t exec --no-startup-id pkill picom
+#bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 
 # change focus
 bindsym $mod+j focus left
@@ -418,7 +418,7 @@ bindsym --release Shift+Print exec "maim -s | xclip -selection clipboard -t imag
 
 # Kimo start picom compositor
 # (for transparency effect, having installed compton is required)
-#exec_always picom &
+exec_always picom & 
 
 # Kimo scratchpads
 # Make the currently focused window a scratchpad
