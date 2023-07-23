@@ -450,4 +450,9 @@ for_window [class="TelegramDesktop"] move window to scratchpad
 bindsym $mod+Shift+question exec telegram-desktop
 bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 
-bindsym $mod+t [class="itty"] scratchpad show
+bindsym $mod+t [class="kitty"] scratchpad show
+bindsym $mod+x [class="Google-chrome"] scratchpad show
+bindsym $mod+c exec google-chrome-stable
+
+
+
