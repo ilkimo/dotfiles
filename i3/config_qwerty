@@ -1,4 +1,8 @@
 # i3 config file (v4)
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
@@ -412,8 +416,9 @@ bindsym --release Shift+Print exec "maim -s | xclip -selection clipboard -t imag
 # (for transparency effect, having installed compton is required)
 exec_always picom &
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts;
+exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/wp5585400-anime-girl-4k-3d-wallpapers.jpg;
 bindsym $mod+P exec --no-startup-id polybar-msg cmd toggle
+
 
 # Kimo scratchpads
 # Make the currently focused window a scratchpad
@@ -445,9 +450,4 @@ for_window [class="TelegramDesktop"] move window to scratchpad
 bindsym $mod+Shift+question exec telegram-desktop
 bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 
-for_window [class="Terminator"] move window to scratchpad
-bindsym $mod+agrave [class="Terminator"] scratchpad show
-
-# Kimo app bindings
-bindsym $mod+c exec google-chrome-stable
-bindsym $mod+x [class="Google-chrome"] scratchpad show
+bindsym $mod+t [class="itty"] scratchpad show
