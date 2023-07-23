@@ -1,6 +1,4 @@
 # i3 config file (v4)
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
@@ -449,4 +447,7 @@ bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 
 for_window [class="Terminator"] move window to scratchpad
 bindsym $mod+agrave [class="Terminator"] scratchpad show
-bindsym $mod+t [class="kitty"] scratchpad show
+
+# Kimo app bindings
+bindsym $mod+c exec google-chrome-stable
+bindsym $mod+x [class="Google-chrome"] scratchpad show
