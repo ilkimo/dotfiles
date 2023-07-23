@@ -18,3 +18,9 @@ mkdir -p ~/.config/polybar
 #ln -s ~/repos/dotfiles/polybar/launch.sh ~/.config/polybar/launch.sh
 sudo pacman -S calc rofi
 yay -S pywal
+
+# kitty
+mv ~/.config/kitty ~/.config/kitty.old
+mkdir -p ~/.config/kitty
+ln -s ~/repos/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -s ~/repos/dotfiles/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
