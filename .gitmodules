@@ -1,3 +1,6 @@
 [submodule "kickstart.nvim"]
 	path = kickstart.nvim
 	url = git@github.com:ilkimo/kickstart.nvim.git
+[submodule "polybar/polybar-themes"]
+	path = polybar/polybar-themes
+	url = git@github.com:ilkimo/polybar-themes.git
