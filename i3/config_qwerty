@@ -52,6 +52,8 @@ bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec terminal -e 'mocp'
+#bindsym $mod+t exec --no-startup-id pkill picom
+#bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 
 # change focus
 bindsym $mod+j focus left
@@ -445,8 +447,6 @@ for_window [class="TelegramDesktop"] move window to scratchpad
 bindsym $mod+Shift+question exec telegram-desktop
 bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 
-# Kimo app bindings
-bindsym $mod+c exec google-chrome-stable
-bindsym $mod+x [class="Google-chrome"] scratchpad show
-
+for_window [class="Terminator"] move window to scratchpad
+bindsym $mod+agrave [class="Terminator"] scratchpad show
 bindsym $mod+t [class="kitty"] scratchpad show
