@@ -434,7 +434,8 @@ for_window [class="Pavucontrol"] move window to scratchpad
 bindsym $mod+Shift+m exec pavucontrol
 bindsym $mod+m [class="Pavucontrol"] scratchpad show
 
-for_window [class="thunderbird"] move window to scratchpad
+for_window [class="thunderbird"] move window to scratchpad, resize set 90ppt 80ppt
+for_window [class="thunderbird"] move window to center 
 bindsym $mod+Shift+n exec thunderbird
 bindsym $mod+n [class="thunderbird"] scratchpad show
 
@@ -453,6 +454,4 @@ bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 bindsym $mod+t [class="kitty"] scratchpad show
 bindsym $mod+x [class="Google-chrome"] scratchpad show
 bindsym $mod+c exec google-chrome-stable
-
-
 
