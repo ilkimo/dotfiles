@@ -220,7 +220,7 @@ mode "$mode_system" {
 }
 
 # Resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
+bindsym $mod+p mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # Pressing left will shrink the window’s width.
@@ -434,7 +434,7 @@ bindsym $mod+Shift+h exec pavucontrol
 bindsym $mod+h [class="Pavucontrol"] scratchpad show
 
 for_window [class="thunderbird"] move window to scratchpad, resize set 90ppt 80ppt
-for_window [class="thunderbird"] move window to center 
+#for_window [class="thunderbird"] move window to center 
 bindsym $mod+Shift+k exec thunderbird
 bindsym $mod+k [class="thunderbird"] scratchpad show
 
@@ -443,7 +443,7 @@ bindsym $mod+Shift+z exec bitwarden-desktop
 bindsym $mod+z [class="Bitwarden"] scratchpad show
 
 for_window [class="Spotify"] move window to scratchpad, resize set 90ppt 80ppt, resize set 90ppt 80ppt
-for_window [class="Spotify"] move window to center
+#for_window [class="Spotify"] move window to center
 bindsym $mod+Shift+comma exec spotify-launcher
 bindsym $mod+comma [class="Spotify"] scratchpad show
 
