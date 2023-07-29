@@ -24,3 +24,5 @@ mv ~/.config/kitty ~/.config/kitty.old
 mkdir -p ~/.config/kitty
 ln -s ~/repos/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -s ~/repos/dotfiles/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
+ln -s /home/il_kimo/repos/dotfiles/kitty/kitty_teaching.conf ~/.config/kitty/kitty_teaching.conf
+
