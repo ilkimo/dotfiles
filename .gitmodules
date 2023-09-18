@@ -4,3 +4,6 @@
 [submodule "polybar/polybar-themes"]
 	path = polybar/polybar-themes
 	url = git@github.com:ilkimo/polybar-themes.git
+[submodule "BigBagKbdTrixXKB"]
+	path = BigBagKbdTrixXKB
+	url = git@github.com:ilkimo/BigBagKbdTrixXKB.git
