@@ -149,3 +149,9 @@ fi
  cat ~/.cache/wal/sequences
 
  cowsay $(date) | lolcat
+
+# add personal (kimo) bash customizations (also ~/.bash_customizations must exist of course)
+if [ -f ~/.bash_customizations ]; then
+    . ~/.bash_customizations
+fi
+

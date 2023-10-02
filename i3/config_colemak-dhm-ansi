@@ -248,6 +248,7 @@ mode "resize" {
 
 # Lock screen
 bindsym $mod+9 exec --no-startup-id blurlock -f
+bindsym $mod+Ctrl+i exec convert "/home/il_kimo/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Spiraling vibexplosions.png" RGB:- | i3lock -f --raw 1920x1080:rgb --image /dev/stdin
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -417,7 +418,7 @@ bindsym --release Shift+Print exec "maim -s | xclip -selection clipboard -t imag
 # (for transparency effect, having installed compton is required)
 exec_always picom &
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/wp5585400-anime-girl-4k-3d-wallpapers.jpg;
+exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png;
 bindsym $mod+semicolon exec --no-startup-id polybar-msg cmd toggle
 
 # Kimo scratchpads
