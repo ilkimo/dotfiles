@@ -4,6 +4,8 @@
 sleep_time=60
 wallpaper_path="/usr/share/backgrounds"
 valid_extensions=("jpg" "png" "bmp" "jpeg" "gif" "svg")
+verbosity="ERROR" # Default verbosity level
+truncate_under=0  # Default truncate under threshold
 
 # Function to echo based on verbosity level
 log() {
@@ -32,7 +34,6 @@ log() {
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -s|--sleep)
-            # Check if the next argument exists and is a positive integer
             if [[ -n $2 && $2 =~ ^[0-9]+$ ]]; then
                 sleep_time=$2
                 shift 2
@@ -42,7 +43,6 @@ while [[ $# -gt 0 ]]; do
             fi
             ;;
         -p|--path)
-            # Check if the next argument exists and is a directory
             if [[ -n $2 && -d $2 ]]; then
                 wallpaper_path="$2"
                 shift 2
@@ -52,7 +52,6 @@ while [[ $# -gt 0 ]]; do
             fi
             ;;
         -v|--verbosity)
-            # Check if the next argument is a valid verbosity level
             case "$2" in
                 ERROR|DEBUG|TRACE)
                     verbosity="$2"
@@ -64,8 +63,16 @@ while [[ $# -gt 0 ]]; do
                     ;;
             esac
             ;;
+        -t|--truncate-under)
+            if [[ -n $2 && $2 =~ ^[0-9]+$ ]]; then
+                truncate_under=$2
+                shift 2
+            else
+                log "ERROR" "Invalid truncate under value specified."
+                exit 1
+            fi
+            ;;
         *)
-            # Treat any other argument as an unknown option
             log "ERROR" "Unknown option $1"
             exit 1
             ;;
@@ -73,22 +80,16 @@ while [[ $# -gt 0 ]]; do
 done
 
 log "DEBUG" "Script started with verbosity: $verbosity"
+log "DEBUG" "Keeping only images with Rating metadata above $truncate_under"
 
-# Generate a list of all wallpaper file paths
-all_wallpaper_files=($(find "$wallpaper_path" -type f))
+# Call ranker.sh to get the sorted and truncated list of wallpapers
+wallpaper_files=($(./ranker.sh -p "$wallpaper_path" -o desc -t "$truncate_under"))
 
-# Filter the list to include only files with valid extensions
-wallpaper_files=()
-for file in "${all_wallpaper_files[@]}"; do
-    for ext in "${valid_extensions[@]}"; do
-        if [[ "${file,,}" == *".$ext" ]]; then
-            wallpaper_files+=("$file")
-            break
-        fi
-    done
+log "DEBUG" "${#wallpaper_files[@]} files have been selected:"
+for file in "${wallpaper_files[@]}"; do
+    truncated_file_path="${file#$wallpaper_path/}"
+    log "DEBUG" "$truncated_file_path"
 done
-
-log "DEBUG" "Valid images found: ${wallpaper_files[*]}"
 
 # Get a list of connected displays
 connected_displays=($(xrandr | grep " connected" | awk '{print $1}'))
@@ -99,31 +100,20 @@ while true; do
 
     # Build the feh command with wallpaper file paths for the first N connected displays
     feh_command="feh --bg-fill"
-    i=0
-    j=0
-    for ((i = 0; i < ${#connected_displays[@]}; i++, j++)); do
-        if [ -e "${shuffled_wallpapers[j]}" ]; then
-            feh_command+=" '${shuffled_wallpapers[j]}'"
-        else
-            log "DEBUG" "file ${shuffled_wallpapers[j]} has been removed or relocated, trying to use a different file"
-            sleep 1
-            ((i--))  # Decrease i to select another image for this display
+    for display in "${connected_displays[@]}"; do
+        if [ -n "${shuffled_wallpapers[0]}" ]; then
+            feh_command+=" --bg-fill '${shuffled_wallpapers[0]}'"
+            shuffled_wallpapers=("${shuffled_wallpapers[@]:1}")
         fi
     done
 
-    # Check if all files for connected displays exist before executing the feh command
-    if [ "$i" -eq ${#connected_displays[@]} ]; then
-        # Execute the feh command and check its exit status
-        if eval "$feh_command"; then
-            log "TRACE" "executed --> $feh_command"
-        else
-            log "ERROR" "Failed to set wallpaper with feh. Command: $feh_command"
-        fi
+    # Execute the feh command and check its exit status
+    if eval "$feh_command"; then
+        log "TRACE" "executed --> $feh_command"
     else
-        log "DEBUG" "Some images have been removed at the last second, skipping this try..."
+        log "ERROR" "Failed to set wallpaper with feh. Command: $feh_command"
     fi
 
     # Sleep for the specified time
     sleep "$sleep_time"
 done
-

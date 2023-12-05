@@ -29,6 +29,10 @@ explore_directory() {
   echo "$image_list"
 }
 
+# New variables for sorting and truncation
+sort_order="desc" # default sort order
+truncate_under=0  # default threshold (0 means no truncation)
+
 # Parse command-line options
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -38,26 +42,53 @@ while [[ $# -gt 0 ]]; do
                 path="$2"
                 shift 2
             else
-                #log "ERROR" "Invalid wallpaper path specified."
                 echo "Invalid wallpaper path specified."
                 exit 1
             fi
             ;;
+        -o|--order)
+            if [[ $2 == "asc" || $2 == "desc" ]]; then
+                sort_order="$2"
+                shift 2
+            else
+                echo "Invalid order specified. Use 'asc' or 'desc'."
+                exit 1
+            fi
+            ;;
+        -t|--truncate-under)
+            if [[ -n $2 && $2 =~ ^[0-9]+$ ]]; then
+                truncate_under="$2"
+                shift 2
+            else
+                echo "Invalid truncate under value specified."
+                exit 1
+            fi
+            ;;
         *)
-            # Treat any other argument as an unknown option
-            #log "ERROR" "Unknown option $1"
             echo "Unknown option $1"
             exit 1
             ;;
     esac
 done
 
-# Start exploring the current directory (you can specify a different directory)
 image_list=$(explore_directory "$path")
 
-# Sort the image list in descending order and print the output
-IFS=$'\n' sorted_list=($(echo "$image_list" | tr ' ' '\n' | sort -r))
+# Filter and sort the image list
+IFS=$'\n' image_array=($(echo "$image_list" | tr ' ' '\n'))
+sorted_list=()
+for item in "${image_array[@]}"; do
+  rating=${item%%_*}
+  if (( rating >= truncate_under )); then
+    sorted_list+=("${item}") # Add only the path
+  fi
+done
+
+if [[ "$sort_order" == "desc" ]]; then
+  sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort -r))
+else
+  sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort))
+fi
+
 for item in "${sorted_list[@]}"; do
-  #echo "${item#*_}"  # Extract the filename from "Rating_filename" pair
-  echo "${item}"  # Extract the filename from "Rating_filename" pair
+  echo ${item#*_}
 done
