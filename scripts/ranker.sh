@@ -64,6 +64,10 @@ while [[ $# -gt 0 ]]; do
                 exit 1
             fi
             ;;
+        -c|--cut-rankings)
+            cut_rankings=true
+            shift
+            ;;
         *)
             echo "Unknown option $1"
             exit 1
@@ -77,18 +81,22 @@ image_list=$(explore_directory "$path")
 IFS=$'\n' image_array=($(echo "$image_list" | tr ' ' '\n'))
 sorted_list=()
 for item in "${image_array[@]}"; do
-  rating=${item%%_*}
-  if (( rating >= truncate_under )); then
-    sorted_list+=("${item}") # Add only the path
-  fi
+    rating=${item%%_*}
+    if (( rating >= truncate_under )); then
+        sorted_list+=("${item}") # Add only the path
+    fi
 done
 
 if [[ "$sort_order" == "desc" ]]; then
-  sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort -r))
+    sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort -r))
 else
-  sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort))
+    sorted_list=($(printf "%s\n" "${sorted_list[@]}" | sort))
 fi
 
 for item in "${sorted_list[@]}"; do
-  echo ${item#*_}
+    if [ "$cut_rankings" = true ]; then
+        echo ${item#*_} # Echoes only filename
+    else
+        echo ${item} # Echoes rating and filename
+    fi
 done

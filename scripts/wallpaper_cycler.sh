@@ -79,17 +79,26 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+
+log "DEBUG" "-----------------------------------------------------------------------------------"
 log "DEBUG" "Script started with verbosity: $verbosity"
 log "DEBUG" "Keeping only images with Rating metadata above $truncate_under"
+log "DEBUG" "-----------------------------------------------------------------------------------"
 
 # Call ranker.sh to get the sorted and truncated list of wallpapers
 wallpaper_files=($(./ranker.sh -p "$wallpaper_path" -o desc -t "$truncate_under"))
 
 log "DEBUG" "${#wallpaper_files[@]} files have been selected:"
-for file in "${wallpaper_files[@]}"; do
+for item in "${wallpaper_files[@]}"; do
+    # Split the item into rating and file path
+    rating=${item%%_*}
+    file=${item#*_}
+
     truncated_file_path="${file#$wallpaper_path/}"
-    log "DEBUG" "$truncated_file_path"
+    log "DEBUG" "Rating=$rating --> File=$truncated_file_path"
 done
+
+log "DEBUG" "-----------------------------------------------------------------------------------"
 
 # Get a list of connected displays
 connected_displays=($(xrandr | grep " connected" | awk '{print $1}'))
@@ -102,7 +111,9 @@ while true; do
     feh_command="feh --bg-fill"
     for display in "${connected_displays[@]}"; do
         if [ -n "${shuffled_wallpapers[0]}" ]; then
-            feh_command+=" --bg-fill '${shuffled_wallpapers[0]}'"
+            # Strip out the NUM_ prefix and then add the path to the feh_command
+            path_without_num_prefix=${shuffled_wallpapers[0]#*_}
+            feh_command+=" --bg-fill '${path_without_num_prefix}'"
             shuffled_wallpapers=("${shuffled_wallpapers[@]:1}")
         fi
     done
@@ -117,3 +128,4 @@ while true; do
     # Sleep for the specified time
     sleep "$sleep_time"
 done
+
