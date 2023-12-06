@@ -101,7 +101,7 @@ done
 log "DEBUG" "-----------------------------------------------------------------------------------"
 
 # Get a list of connected displays
-connected_displays=($(xrandr | grep " connected" | awk '{print $1}'))
+#connected_displays=($(xrandr | grep " connected" | awk '{print $1}'))
 
 while true; do
     # Shuffle the list of wallpaper file paths
@@ -109,7 +109,7 @@ while true; do
 
     # Build the feh command with wallpaper file paths for the first N connected displays
     feh_command="feh --bg-fill"
-    for display in "${connected_displays[@]}"; do
+    for display in $(xrandr | grep " connected" | awk '{print $1}'); do
         if [ -n "${shuffled_wallpapers[0]}" ]; then
             # Strip out the NUM_ prefix and then add the path to the feh_command
             path_without_num_prefix=${shuffled_wallpapers[0]#*_}
