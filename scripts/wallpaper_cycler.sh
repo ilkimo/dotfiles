@@ -100,9 +100,6 @@ done
 
 log "DEBUG" "-----------------------------------------------------------------------------------"
 
-# Get a list of connected displays
-#connected_displays=($(xrandr | grep " connected" | awk '{print $1}'))
-
 while true; do
     # Shuffle the list of wallpaper file paths
     shuffled_wallpapers=($(shuf -e "${wallpaper_files[@]}"))
