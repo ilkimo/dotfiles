@@ -251,7 +251,7 @@ bindsym $mod+9 exec --no-startup-id blurlock -f
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b
+exec --no-startup-id feh --bg-fill /home/il_kimo/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png; sleep 1; picom -b
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
@@ -409,10 +409,6 @@ bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot
 # Kimo multi monitor specifics
 # the command ($ exec_always) also executes on i3 restart
 # exec_always xrandr --output DP-2 --left-of DP-0 --output DP-4 --right-of DP-0
-
-# Kimo persist wallpaper after reboot
-# It refreshesh nitrogen's wallpapers, the app I use to set my wallpaper
-#exec_always nitrogen --restore &
 
 # Kimo start picom compositor
 # (for transparency effect, having installed compton is required)
