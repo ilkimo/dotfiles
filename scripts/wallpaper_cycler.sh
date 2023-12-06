@@ -108,7 +108,7 @@ while true; do
     shuffled_wallpapers=($(shuf -e "${wallpaper_files[@]}"))
 
     # Build the feh command with wallpaper file paths for the first N connected displays
-    feh_command="feh --bg-fill"
+    feh_command="feh"
     for display in $(xrandr | grep " connected" | awk '{print $1}'); do
         if [ -n "${shuffled_wallpapers[0]}" ]; then
             # Strip out the NUM_ prefix and then add the path to the feh_command
