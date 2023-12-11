@@ -15,3 +15,8 @@
 ```/shell
 exiftool -Rating=50 image.png
 ```
+
+
+```/shell
+exiftool -UserComment="Rating:90 Contrast:50 Brightness: 40" /var/tmp/images/ant_mi3.jpg
+```
