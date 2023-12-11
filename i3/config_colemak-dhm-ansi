@@ -457,4 +457,4 @@ bindsym $mod+b [class="kitty"] scratchpad show
 bindsym $mod+c [class="Google-chrome"] scratchpad show
 bindsym $mod+d exec google-chrome-stable
 
-
+bindsym $mod+Shift+w exec feh --bg-fill /home/il_kimo/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png
