@@ -92,7 +92,7 @@ install_packages() {
 
 # Function to create symlinks
 create_symlink() {
-    local target_file=$1  # The actual file or directory to link to (target of the symlink)
+    local target_file=$1  # The path and name of the file or directory to link to (target of the symlink)
     local symlink_name=$2  # The name of the symbolic link (link name)
 
     if [ -L "$symlink_name" ]; then
@@ -104,7 +104,7 @@ create_symlink() {
     fi
 
     echo "Creating symlink from $target_file to $symlink_name"
-    ln -s "$(pwd)/$target_file" "$symlink_name"
+    ln -sf "$target_file" "$symlink_name"
 }
 
 # START SCRIPT -----------------------------------------------------------------------------
@@ -152,7 +152,7 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm dmenu pywal polybar
+install_packages sl cmatrix cowsay lolcat xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm dmenu pywal polybar docker
 
 echo "Add slick-greeter configuration"
 sudo cp "$PROJECT_PATH/display-manager/slick-greeter.conf" /etc/lightdm/slick-greeter.conf
@@ -168,12 +168,16 @@ grep "greeter-session\|user-session" $LIGHTDM_CONF
 
 echo "Enabling Display Manager lightdm-slick-greeter"
 sudo systemctl enable lightdm
+
+# Setup i3 symlinks
+echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
+mkdir -p ~/.config/i3
+ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
+#create_symlink "$PROJECT_PATH/i3/config_colemak-dhm-ansi" "~/.config/i3/config"
+ln -sf $PROJECT_PATH/i3/dynamic_bindsym.conf ~/.config/i3/dynamic_bindsym.conf
+#create_symlink "$PROJECT_PATH/i3/dynamic_bindsym.conf" "~/.config/i3/dynamic_bindsym.conf"
+
 echo "Starting Display Manager lightdm"
 sudo systemctl start lightdm
-
-
-
-
-
 
 echo "Installation complete!"
