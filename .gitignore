@@ -1,0 +1,4 @@
+
+.vagrant
+secrets/*
+!secrets/README.md

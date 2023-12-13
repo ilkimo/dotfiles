@@ -108,6 +108,12 @@ create_symlink() {
 }
 
 # START SCRIPT -----------------------------------------------------------------------------
+# Set PROJECT_PATH based on whether the script is running under Vagrant
+if [ "$VAGRANT_TEST" = "true" ]; then
+    PROJECT_PATH="/vagrant"
+else
+    PROJECT_PATH="."
+fi
 
 # Detect the package manager
 echo "Detecting package manager"
@@ -126,30 +132,33 @@ fi
 echo "Updating the system"
 update_system
 
-# TODO
-#echo "Installing yay"
-#install_package yay
-#which yay
+install_packages git base-devel go
+
+# Check if yay is already installed
+if ! command -v yay &> /dev/null; then
+    echo "yay not found, installing yay..."
+
+    # Cloning yay repository
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    cd /tmp/yay
+
+    # Building and installing yay
+    makepkg -si --noconfirm
+
+    cd -  # Returning to the original directory
+else
+    echo "yay is already installed."
+fi
+echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm dmenu  polybar
+install_packages sl cmatrix cowsay lolcat xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm dmenu pywal polybar
 
-sudo touch /etc/lightdm/slick-greeter.conf
-echo "[Greeter]
-background=/usr/share/backgrounds/sword-art-online
-background-color=#2e3d44
-draw-grid=false
-#theme-name=Adapta-Nokto-Eta-Maia
-#icon-theme-name=Papirus-Adapta-Nokto-Maia
-#font-name='Noto Sans 11'
-xft-antialias=true
-xft-hintstyle=hintfull
-enable-hidpi=auto
-" > /etc/lightdm/slick-greeter.conf"
+echo "Add slick-greeter configuration"
+sudo cp "$PROJECT_PATH/display-manager/slick-greeter.conf" /etc/lightdm/slick-greeter.conf
 
 # Path to the lightdm.conf file
 LIGHTDM_CONF="/etc/lightdm/lightdm.conf"
-
 # Use sed to uncomment and set the greeter-session and user-session
 sudo sed -i 's/^#greeter-session=.*/greeter-session=lightdm-slick-greeter/' $LIGHTDM_CONF
 sudo sed -i 's/^#user-session=.*/user-session=i3/' $LIGHTDM_CONF
@@ -161,17 +170,6 @@ echo "Enabling Display Manager lightdm-slick-greeter"
 sudo systemctl enable lightdm
 echo "Starting Display Manager lightdm"
 sudo systemctl start lightdm
-
-# TODO when yay works
-# install_packages pywal
-
-
-
-
-
-
-
-
 
 
 
