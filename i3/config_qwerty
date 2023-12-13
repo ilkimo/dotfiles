@@ -449,10 +449,13 @@ for_window [class="TelegramDesktop"] move window to scratchpad
 bindsym $mod+Shift+question exec telegram-desktop
 bindsym $mod+question [class="TelegramDesktop"] scratchpad show
 
-bindsym $mod+period [class="Zathura"] scratchpad show
-
 bindsym $mod+t [class="kitty"] scratchpad show
 bindsym $mod+x [class="Google-chrome"] scratchpad show
 bindsym $mod+c exec google-chrome-stable
 
 bindsym $mod+Shift+w exec feh --bg-fill /home/il_kimo/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png
+
+# Include configuration file for dynamic bindings 
+exec_always --no-startup-id touch ~/.config/i3/dynamic_bindsym.conf
+include ~/.config/i3/dynamic_bindsym.conf
+bindsym $mod+Shift+period exec ~/.config/i3/dynamic_bindsym.sh
