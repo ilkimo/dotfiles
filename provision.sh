@@ -90,29 +90,24 @@ install_packages() {
     esac
 }
 
-# Function to create symlinks
-create_symlink() {
-    local target_file=$1  # The path and name of the file or directory to link to (target of the symlink)
-    local symlink_name=$2  # The name of the symbolic link (link name)
-
-    if [ -L "$symlink_name" ]; then
-        echo "Removing existing symlink: $symlink_name"
-        rm "$symlink_name"
-    elif [ -e "$symlink_name" ]; then
-        echo "Renaming existing file/directory: $symlink_name to ${symlink_name}.old"
-        mv "$symlink_name" "${symlink_name}.old"
-    fi
-
-    echo "Creating symlink from $target_file to $symlink_name"
-    ln -sf "$target_file" "$symlink_name"
-}
-
 # START SCRIPT -----------------------------------------------------------------------------
 # Set PROJECT_PATH based on whether the script is running under Vagrant
 if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
+    USER=vagrant
 else
     PROJECT_PATH="."
+    # Check if the .env file exists and source it
+    if [ -f "./secrets/.env" ]; then
+        echo "Loading environment variables from .env file..."
+        set -o allexport
+        source "./secrets/.env"
+        set +o allexport
+    else
+        echo "No .env file found in secrets directory, using default values"
+        # Set default values or exit if necessary
+        USER="default_user"
+    fi
 fi
 
 # Detect the package manager
@@ -152,7 +147,9 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm dmenu pywal polybar docker
+install_packages sl cmatrix cowsay lolcat cava xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc neovim kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal polybar docker maim picom polybar pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
+# TODO morc_menu bmenu
+# imagemagick is for image generation (directory template_images)
 
 echo "Add slick-greeter configuration"
 sudo cp "$PROJECT_PATH/display-manager/slick-greeter.conf" /etc/lightdm/slick-greeter.conf
@@ -173,9 +170,36 @@ sudo systemctl enable lightdm
 echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
 mkdir -p ~/.config/i3
 ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
-#create_symlink "$PROJECT_PATH/i3/config_colemak-dhm-ansi" "~/.config/i3/config"
 ln -sf $PROJECT_PATH/i3/dynamic_bindsym.conf ~/.config/i3/dynamic_bindsym.conf
-#create_symlink "$PROJECT_PATH/i3/dynamic_bindsym.conf" "~/.config/i3/dynamic_bindsym.conf"
+ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
+
+# Handle wallpaper and lock-screen
+sudo mkdir -p "/home/$USER/Pictures/wallpapers"
+sudo mkdir -p "/home/$USER/Pictures/lock-screens"
+sudo chown $USER "/home/$USER"
+sudo chmod 700 "/home/$USER"
+sudo cp $PROJECT_PATH/template_images/7680x1440/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-7680x1440"
+sudo cp $PROJECT_PATH/template_images/2560x1440/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-2560x1440"
+sudo cp $PROJECT_PATH/template_images/2560x1440/lock-screen "/home/$USER/Pictures/lock-screens/lock-screen-2560x1440"
+sudo cp $PROJECT_PATH/template_images/1920x1080/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-1920x1080"
+sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen "/home/$USER/Pictures/lock-screens/lock-screen-1920x1080"
+sudo chown --recursive $USER "/home/$USER/Pictures"
+sudo chmod --recursive 600 "/home/$USER/Pictures"
+sudo chmod 700 "/home/$USER/Pictures"
+sudo chmod 700 "/home/$USER/Pictures/wallpapers"
+sudo chmod 700 "/home/$USER/Pictures/lock-screens"
+
+# Setup picom links
+mkdir -p ~/.config/picom
+ln -sf $PROJECT_PATH/picom/picom.conf ~/.config/picom/picom.conf
+
+# Setup kitty links
+mkdir -p ~/.config/kitty
+ln -sf $PROJECT_PATH/kitty/kitty.conf ~/.config/kitty/kitty.conf
+
+# Set default applications
+sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
+sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 
 echo "Starting Display Manager lightdm"
 sudo systemctl start lightdm
