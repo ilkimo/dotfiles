@@ -149,8 +149,7 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-#install_packages sl cmatrix cowsay lolcat cava xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc neovim kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal polybar docker maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
-install_packages xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc kitty feh vim lightdm lightdm-slick-greeter i3-wm picom google-chrome
+install_packages sl cmatrix cowsay lolcat cava xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc neovim kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal polybar docker maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
 
