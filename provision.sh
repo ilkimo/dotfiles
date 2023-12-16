@@ -208,15 +208,11 @@ fi
 mkdir -p ~/Pictures/wallpapers
 mkdir -p ~/Pictures/lock-screens
 sudo cp $PROJECT_PATH/template_images/7680x1440/wallpaper ~/Pictures/wallpapers/wallpaper-7680x1440
+sudo cp $PROJECT_PATH/template_images/7680x1440/lock-screen ~/Pictures/lock-screens/lock-screen-7680x1440
 sudo cp $PROJECT_PATH/template_images/2560x1440/wallpaper ~/Pictures/wallpapers/wallpaper-2560x1440
 sudo cp $PROJECT_PATH/template_images/2560x1440/lock-screen ~/Pictures/lock-screens/lock-screen-2560x1440
 sudo cp $PROJECT_PATH/template_images/1920x1080/wallpaper ~/Pictures/wallpapers/wallpaper-1920x1080
 sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen ~/Pictures/lock-screens/lock-screen-1920x1080
-#sudo chown --recursive "$USER:$USER" ~/Pictures
-#sudo chmod --recursive 600 ~/Pictures
-#sudo chmod 700 ~/Pictures
-#find ~/Pictures -type d -exec sudo chmod 777 {} \;
-#find ~/Pictures -type f -exec sudo chmod 777 {} \;
 
 # Setup i3 symlinks
 echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
@@ -224,6 +220,7 @@ mkdir -p ~/.config/i3
 ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
 ln -sf $PROJECT_PATH/i3/dynamic_bindsym.sh ~/.config/i3/dynamic_bindsym.sh
 ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
+ln -sf $PROJECT_PATH/i3/set-lock-screen.sh ~/.config/i3/set-lock-screen.sh
 sudo chown --recursive "$USER:$USER" ~/.config/i3
 
 # Setup picom links

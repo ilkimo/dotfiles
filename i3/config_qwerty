@@ -27,7 +27,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id dmenu_recency
+bindsym $mod+s exec --no-startup-id rofi -show drun -show-icons
 
 # launch categorized menu
 bindsym $mod+Shift+d exec --no-startup-id morc_menu
@@ -248,10 +248,11 @@ mode "resize" {
 
 # Lock screen
 bindsym $mod+9 exec --no-startup-id blurlock -f
+bindsym $mod+Ctrl+i exec ~/.config/i3/set-lock-screen.sh
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id feh --bg-fill /home/il_kimo/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png; sleep 1; picom -b
+exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
