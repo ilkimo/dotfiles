@@ -6,9 +6,9 @@ CENTER_DISPLAY="DP-1"
 RIGHT_DISPLAY="DP-2"
 
 # Define directories for wallpapers
-WALLPAPER_DIR_3_DISPLAYS="~/Pictures/wallpapers/wallpaper-7680x1440"
-WALLPAPER_DIR_1_DISPLAY_2560x1440="~/Pictures/wallpapers/wallpaper-2560x1440"
-WALLPAPER_DIR_1_DISPLAY_1920x1080="~/Pictures/wallpapers/wallpaper-1920x1080"
+WALLPAPER_DIR_3_DISPLAYS="$HOME/Pictures/wallpapers/wallpaper-7680x1440"
+WALLPAPER_DIR_1_DISPLAY_2560x1440="$HOME/Pictures/wallpapers/wallpaper-2560x1440"
+WALLPAPER_DIR_1_DISPLAY_1920x1080="$HOME/Pictures/wallpapers/wallpaper-1920x1080"
 
 # Using xrandr to get the number of connected displays
 NUM_DISPLAYS=$(xrandr --query | grep " connected" | wc -l)

@@ -94,7 +94,7 @@ install_packages() {
 # Set PROJECT_PATH based on whether the script is running under Vagrant
 if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
-    USER=vagrant
+    USER="vagrant"
 else
     PROJECT_PATH="."
     # Check if the .env file exists and source it
@@ -109,6 +109,8 @@ else
         USER="default_user"
     fi
 fi
+echo "User is set to $USER"
+echo "Project_path is set to $PROJECT_PATH"
 
 # Detect the package manager
 echo "Detecting package manager"
@@ -147,7 +149,8 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat cava xorg-server nvidia nvidia-utils nvidia-settings xorg-xcalc neovim kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal polybar docker maim picom polybar pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
+#install_packages sl cmatrix cowsay lolcat cava xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc neovim kitty ranger zathura feh tree vim lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal polybar docker maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
+install_packages xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc kitty feh vim lightdm lightdm-slick-greeter i3-wm picom google-chrome
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
 
@@ -166,36 +169,72 @@ grep "greeter-session\|user-session" $LIGHTDM_CONF
 echo "Enabling Display Manager lightdm-slick-greeter"
 sudo systemctl enable lightdm
 
+# Create user directory
+# Check if $USER is set
+if [ -z "$USER" ]; then
+    echo "The \$USER variable is not set."
+    exit 1
+fi
+
+# Define the user's home directory
+USER_HOME="/home/$USER"
+
+# Check if the directory exists
+echo "Checking if $USER_HOME directory exists"
+if [ ! -d "$USER_HOME" ]; then
+    echo "Directory $USER_HOME does not exist. Creating it..."
+
+    # Attempt to create the directory with sudo
+    sudo mkdir "$USER_HOME"
+
+    # Change the ownership of the directory to the user
+    sudo chown "$USER:$USER" "$USER_HOME"
+
+    # Set the appropriate permissions for the home directory
+    sudo chmod 700 "$USER_HOME"
+
+    # Check if the operations were successful
+    if [ -d "$USER_HOME" ] && [ "$(stat -c '%U' "$USER_HOME")" = "$USER" ]; then
+        echo "Directory $USER_HOME created and configured successfully."
+    else
+        echo "Failed to properly create and configure $USER_HOME."
+        exit 1
+    fi
+else
+    echo "Directory $USER_HOME already exists."
+fi
+
+# Handle wallpaper and lock-screen
+mkdir -p ~/Pictures/wallpapers
+mkdir -p ~/Pictures/lock-screens
+sudo cp $PROJECT_PATH/template_images/7680x1440/wallpaper ~/Pictures/wallpapers/wallpaper-7680x1440
+sudo cp $PROJECT_PATH/template_images/2560x1440/wallpaper ~/Pictures/wallpapers/wallpaper-2560x1440
+sudo cp $PROJECT_PATH/template_images/2560x1440/lock-screen ~/Pictures/lock-screens/lock-screen-2560x1440
+sudo cp $PROJECT_PATH/template_images/1920x1080/wallpaper ~/Pictures/wallpapers/wallpaper-1920x1080
+sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen ~/Pictures/lock-screens/lock-screen-1920x1080
+#sudo chown --recursive "$USER:$USER" ~/Pictures
+#sudo chmod --recursive 600 ~/Pictures
+#sudo chmod 700 ~/Pictures
+#find ~/Pictures -type d -exec sudo chmod 777 {} \;
+#find ~/Pictures -type f -exec sudo chmod 777 {} \;
+
 # Setup i3 symlinks
 echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
 mkdir -p ~/.config/i3
 ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
-ln -sf $PROJECT_PATH/i3/dynamic_bindsym.conf ~/.config/i3/dynamic_bindsym.conf
+ln -sf $PROJECT_PATH/i3/dynamic_bindsym.sh ~/.config/i3/dynamic_bindsym.sh
 ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
-
-# Handle wallpaper and lock-screen
-sudo mkdir -p "/home/$USER/Pictures/wallpapers"
-sudo mkdir -p "/home/$USER/Pictures/lock-screens"
-sudo chown $USER "/home/$USER"
-sudo chmod 700 "/home/$USER"
-sudo cp $PROJECT_PATH/template_images/7680x1440/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-7680x1440"
-sudo cp $PROJECT_PATH/template_images/2560x1440/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-2560x1440"
-sudo cp $PROJECT_PATH/template_images/2560x1440/lock-screen "/home/$USER/Pictures/lock-screens/lock-screen-2560x1440"
-sudo cp $PROJECT_PATH/template_images/1920x1080/wallpaper "/home/$USER/Pictures/wallpapers/wallpaper-1920x1080"
-sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen "/home/$USER/Pictures/lock-screens/lock-screen-1920x1080"
-sudo chown --recursive $USER "/home/$USER/Pictures"
-sudo chmod --recursive 600 "/home/$USER/Pictures"
-sudo chmod 700 "/home/$USER/Pictures"
-sudo chmod 700 "/home/$USER/Pictures/wallpapers"
-sudo chmod 700 "/home/$USER/Pictures/lock-screens"
+sudo chown --recursive "$USER:$USER" ~/.config/i3
 
 # Setup picom links
-mkdir -p ~/.config/picom
-ln -sf $PROJECT_PATH/picom/picom.conf ~/.config/picom/picom.conf
+#mkdir -p ~/.config/picom
+#ln -sf $PROJECT_PATH/picom/picom.conf ~/.config/picom/picom.conf
+#sudo chown --recursive "$USER:$USER" ~/.config/picom
 
 # Setup kitty links
 mkdir -p ~/.config/kitty
 ln -sf $PROJECT_PATH/kitty/kitty.conf ~/.config/kitty/kitty.conf
+sudo chown --recursive "$USER:$USER" ~/.config/kitty
 
 # Set default applications
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
