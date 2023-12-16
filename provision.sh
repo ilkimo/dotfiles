@@ -227,9 +227,20 @@ ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
 sudo chown --recursive "$USER:$USER" ~/.config/i3
 
 # Setup picom links
-#mkdir -p ~/.config/picom
-#ln -sf $PROJECT_PATH/picom/picom.conf ~/.config/picom/picom.conf
-#sudo chown --recursive "$USER:$USER" ~/.config/picom
+mkdir -p ~/.config/picom
+ln -sf $PROJECT_PATH/picom/picom.conf ~/.config/picom/picom.conf
+sudo chown --recursive "$USER:$USER" ~/.config/picom
+
+if [ "$VAGRANT_TEST" = "true" ]; then
+    echo "Setting picom backend to xrender for VM compatibility"
+
+    # Use $HOME instead of ~ for reliable path expansion
+    PICOM_CONF_PATH="$USER_HOME/.config/picom/picom.conf"
+
+    # Use sed to change the backend line to xrender
+    sed -i 's/^backend\s*=.*/backend = "xrender"/' "$PICOM_CONF_PATH"
+    echo "done --> $(cat $PICOM_CONF_PATH | grep 'backend = ')"
+fi
 
 # Setup kitty links
 mkdir -p ~/.config/kitty
