@@ -241,6 +241,8 @@ fi
 # Setup kitty links
 mkdir -p ~/.config/kitty
 ln -sf $PROJECT_PATH/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -sf $PROJECT_PATH/kitty/current-theme.conf ~/.config/kitty/current-theme.conf
+ln -sf $PROJECT_PATH/kitty/kitty_teaching.conf ~/.config/kitty/kitty_teaching.conf
 sudo chown --recursive "$USER:$USER" ~/.config/kitty
 
 # Setup Neovim links
