@@ -96,7 +96,7 @@ if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
     USER="vagrant"
 else
-    PROJECT_PATH="."
+    PROJECT_PATH="$(pwd)"
     # Check if the .env file exists and source it
     if [ -f "./secrets/.env" ]; then
         echo "Loading environment variables from .env file..."
