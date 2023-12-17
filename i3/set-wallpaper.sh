@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Display names
-LEFT_DISPLAY="DP-0"
-CENTER_DISPLAY="DP-1"
-RIGHT_DISPLAY="DP-2"
+CENTER_DISPLAY="DP-0"
+RIGHT_DISPLAY="DP-1"
+LEFT_DISPLAY="DP-2"
 
 # Define directories for wallpapers
 WALLPAPER_DIR_3_DISPLAYS="$HOME/Pictures/wallpapers/wallpaper-7680x1440"
