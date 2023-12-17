@@ -249,6 +249,22 @@ sudo chown --recursive "$USER:$USER" ~/.config/kitty
 # In Vagrant this won't work, I think that this is because of the presence of .gitignored files from the host system (and probably cache files that tell neovim that everything is updated or something like that). To make it work on Vagrant, clone the repo directly instead of linking it like this.
 ln -sf $PROJECT_PATH/kickstart.nvim ~/.config/nvim
 
+# Set ~/.bash_aliases if ./secrets/.bash_aliases exists
+if [ -e "$PROJECT_PATH/secrets/.bash_aliases" ]; then
+    if [ -L "$USER_HOME/.bash_aliases" ] || [ -e "$USER_HOME/.bash_aliases" ]; then
+        echo "Symlink or file already exists at $USER_HOME/.bash_aliases. Please remove it first."
+    else
+        ln -sf "$PROJECT_PATH/secrets/.bash_aliases" "$USER_HOME/.bash_aliases"
+        echo "Symlink created: $USER_HOME/.bash_aliases -> $PROJECT_PATH/secrets/.bash_aliases"
+    fi
+else
+    echo "Target file ./secrets/.bash_aliases does not exist, could not link ~/.bash_aliases"
+fi
+
+# Set ~/.bashrc and bash customization
+ln -sf "$PROJECT_PATH/secrets/.bashrc" "$USER_HOME/.bashrc"
+ln -sf "$PROJECT_PATH/bash/bash_customizations" "$USER_HOME/.bash_customizations"
+
 # Set default applications
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
