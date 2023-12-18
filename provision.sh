@@ -269,6 +269,9 @@ ln -sf "$PROJECT_PATH/bash/bash_customizations" "$USER_HOME/.bash_customizations
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 
+# Add user to the Docker group
+sudo usermod -aG docker $USER
+
 echo "Starting Display Manager lightdm"
 sudo systemctl start lightdm
 
