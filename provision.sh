@@ -149,7 +149,7 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat cava fastfetch xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal xclip polybar docker maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl
+install_packages sl cmatrix cowsay lolcat cava fastfetch xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal xclip polybar docker maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl alsa-utils pulseaudio pulseaudio-alsa qjackctl
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
 
@@ -271,5 +271,10 @@ sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 
 echo "Starting Display Manager lightdm"
 sudo systemctl start lightdm
+
+# Enable and start pulse audio service
+systemctl --user enable pulseaudio.service
+systemctl --user start pulseaudio.service
+
 
 echo "Installation complete!"
