@@ -14,18 +14,16 @@ WALLPAPER_DIR_1_DISPLAY_1920x1080="$HOME/Pictures/wallpapers/wallpaper-1920x1080
 NUM_DISPLAYS=$(xrandr --query | grep " connected" | wc -l)
 
 # Check the number of displays and set the wallpaper accordingly
-if [ "$NUM_DISPLAYS" -eq 3 ]; then
-    # Check if all three displays are 2560x1440
-    if xrandr | grep -q "2560x1440.* connected"; then
-        # Configure the displays
-        xrandr --output $LEFT_DISPLAY --mode 2560x1440 --pos 0x0 --rotate normal \
-               --output $CENTER_DISPLAY --mode 2560x1440 --pos 2560x0 --rotate normal \
-               --output $RIGHT_DISPLAY --mode 2560x1440 --pos 5120x0 --rotate normal
+if [ "$NUM_DISPLAYS" -ge 3 ]; then
+    xrandr --output $LEFT_DISPLAY --mode 2560x1440 --pos 0x0 --rotate normal \
+           --output $CENTER_DISPLAY --mode 2560x1440 --pos 2560x0 --rotate normal \
+           --output $RIGHT_DISPLAY --mode 2560x1440 --pos 5120x0 --rotate normal
 
-        feh --no-xinerama --bg-scale "$WALLPAPER_DIR_3_DISPLAYS"
-    fi
+    feh --no-xinerama --bg-scale "$WALLPAPER_DIR_3_DISPLAYS"
 elif [ "$NUM_DISPLAYS" -eq 1 ] && xrandr | grep -q "2560x1440.* connected"; then
+    echo "A"
     feh --bg-scale "$WALLPAPER_DIR_1_DISPLAY_2560x1440"
 else
+    echo "B"
     feh --bg-fill "$WALLPAPER_DIR_1_DISPLAY_1920x1080"
 fi

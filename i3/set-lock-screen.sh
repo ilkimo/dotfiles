@@ -14,13 +14,8 @@ LOCK-SCREEN_DIR_1_DISPLAY_1920x1080="$HOME/Pictures/lock-screens/lock-screen-192
 NUM_DISPLAYS=$(xrandr --query | grep " connected" | wc -l)
 
 # Check the number of displays and set the lock-screen accordingly
-if [ "$NUM_DISPLAYS" -eq 3 ]; then
-    # Check if all three displays are 2560x1440
-    if xrandr | grep -q "2560x1440.* connected"; then
-        convert ~/Pictures/lock-screens/lock-screen-7680x1440 RGB:- | i3lock -f --raw 7680x1440:rgb --image /dev/stdin
-    else
-        i3lock
-    fi
+if [ "$NUM_DISPLAYS" -ge 3 ]; then
+    convert ~/Pictures/lock-screens/lock-screen-7680x1440 RGB:- | i3lock -f --raw 7680x1440:rgb --image /dev/stdin
 elif [ "$NUM_DISPLAYS" -eq 1 ] && xrandr | grep -q "2560x1440.* connected"; then
     convert ~/Pictures/lock-screens/lock-screen-2560x1440 RGB:- | i3lock -f --raw 2560x1440:rgb --image /dev/stdin
 else
