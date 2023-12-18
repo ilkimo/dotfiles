@@ -30,7 +30,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id rofi -show combi -show-icons
 
 # launch categorized menu
-bindsym $mod+Shift+d exec --no-startup-id morc_menu
+bindsym $mod+Ctrl+Shift+s exec --no-startup-id morc_menu
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -86,6 +86,10 @@ workspace_auto_back_and_forth no
 bindsym $mod+z workspace back_and_forth
 bindsym $mod+Shift+z move container to workspace back_and_forth;
 
+# move workspaces to different outputs
+bindsym $mod+Shift+s move workspace to output right
+bindsym $mod+Shift+r move workspace to output left
+
 # split orientation
 bindsym $mod+h split h;
 bindsym $mod+v split v;
@@ -106,7 +110,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # toggle sticky
-bindsym $mod+Shift+s sticky toggle
+bindsym $mod+Ctrl+Shift+r sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
