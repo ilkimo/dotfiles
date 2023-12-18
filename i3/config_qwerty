@@ -27,7 +27,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+s exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+d exec --no-startup-id rofi -show combi -show-icons
 
 # launch categorized menu
 bindsym $mod+Shift+d exec --no-startup-id morc_menu
