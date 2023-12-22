@@ -149,7 +149,7 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat cava fastfetch pipes.sh xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition clion fluxcd synology-drive perl-image-exiftool perl-anyevent-i3
+install_packages sl cmatrix cowsay lolcat cava fastfetch pipes.sh xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura libzathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm pywal xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop google-chrome imagemagick openlens-bin gitkraken code kubectl alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition clion fluxcd synology-drive perl-image-exiftool perl-anyevent-i3
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
 
