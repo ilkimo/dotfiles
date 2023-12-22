@@ -2,8 +2,8 @@
 
 # Display names
 CENTER_DISPLAY="DP-0"
-RIGHT_DISPLAY="DP-1"
-LEFT_DISPLAY="DP-2"
+RIGHT_DISPLAY="DP-2"
+LEFT_DISPLAY="DP-4"
 
 # Define directories for wallpapers
 WALLPAPER_DIR_3_DISPLAYS="$HOME/Pictures/wallpapers/wallpaper-7680x1440"
