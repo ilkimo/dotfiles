@@ -85,8 +85,10 @@ log "DEBUG" "Script started with verbosity: $verbosity"
 log "DEBUG" "Keeping only images with Rating metadata above $truncate_under"
 log "DEBUG" "-----------------------------------------------------------------------------------"
 
+# Get the directory of the current script
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 # Call ranker.sh to get the sorted and truncated list of wallpapers
-wallpaper_files=($(./ranker.sh -p "$wallpaper_path" -o desc -t "$truncate_under"))
+wallpaper_files=($("$script_dir/ranker.sh" -p "$wallpaper_path" -o desc -t "$truncate_under"))
 
 log "DEBUG" "${#wallpaper_files[@]} files have been selected:"
 for item in "${wallpaper_files[@]}"; do
