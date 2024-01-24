@@ -422,6 +422,8 @@ bindsym --release Shift+Print exec "maim -s | xclip -selection clipboard -t imag
 exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png;
 bindsym $mod+semicolon exec --no-startup-id polybar-msg cmd toggle
 
+exec_always --no-startup-id safeeyes
+
 # Kimo scratchpads
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
