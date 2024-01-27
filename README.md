@@ -9,10 +9,10 @@ My personal configuration
 ## Clone this repo
 Clone the repo with --recursive for github submodules
 ```/bin/bash
-git clone --recursive LINK
+git clone --recursive
 ```
 
 ## Install configuration
-The installation of this configuration is handled by the provision.sh script.
+The installation of this configuration is handled by the ./provisioning/provision.sh script.
 
 TAKE CARE! You need to clone this repository (NOT copy it from some local friends' PC), otherwize Neovim could have problems due to .gitignored files untracked in the local repo you copied.
