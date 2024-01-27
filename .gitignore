@@ -2,3 +2,4 @@
 .vagrant
 secrets/*
 !secrets/README.md
+*.log
