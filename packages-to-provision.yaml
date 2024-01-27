@@ -1,0 +1,7 @@
+packages:
+  - name: obsidian
+    default_source: aur
+    # alternative_sources:
+    #   - http://example.com/repo
+  - name: spotify-launcher
+    default_source: aur

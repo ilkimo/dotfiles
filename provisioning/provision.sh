@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-# START SCRIPT -----------------------------------------------------------------------------
 # Set PROJECT_PATH based on whether the script is running under Vagrant
 if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
