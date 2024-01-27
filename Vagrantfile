@@ -75,5 +75,6 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
-  config.vm.provision "shell", path: "~/repos/dotfiles/provision.sh", privileged: false, env: {"VAGRANT_TEST" => "true"}
+  #config.vm.provision "shell", path: "~/repos/dotfiles/provision.sh", privileged: false, env: {"VAGRANT_TEST" => "true"}
+  config.vm.provision "shell", path: "~/repos/dotfiles/scripts/provisioning/modules/install-mixxx.sh", privileged: false, env: {"VAGRANT_TEST" => "true"}
 end
