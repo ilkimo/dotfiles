@@ -413,10 +413,6 @@ bindsym --release $mod+Print exec "maim -i $(xdotool getactivewindow) ~/Pictures
 # Screenshot of a selected area
 bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot.png"
 
-# Kimo multi monitor specifics
-# the command ($ exec_always) also executes on i3 restart
-# exec_always xrandr --output DP-2 --left-of DP-0 --output DP-4 --right-of DP-0
-
 # Kimo start picom compositor
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png;
