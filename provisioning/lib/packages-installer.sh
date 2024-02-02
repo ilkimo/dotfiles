@@ -111,7 +111,14 @@ install_from_git() {
 
 # Main function to parse the YAML file and install modules
 install_modules() {
-    local yaml_file="./modules-to-provision.yaml"
+    local yaml_file=$1  # Path to the modules-to-provision.yaml file
+    local modules_dir=$2  # Base directory for modules
+
+    # Ensure the yaml_file path is absolute or correctly relative to the current script
+    if [[ ! -f "$yaml_file" ]]; then
+        echo "YAML file $yaml_file not found."
+        return 1
+    fi
 
     # Read the number of modules
     local modules_count=$(yq e '.modules | length' "$yaml_file")
@@ -136,7 +143,7 @@ install_modules() {
                     echo "Failed to install $name from package repository"
                 fi
             else
-                if install_from_git "$source" "$name"; then
+                if install_from_git "$source" "$name" "$modules_dir"; then
                     echo "Successfully installed $name from $source"
                     break
                 else
