@@ -25,24 +25,11 @@ fi
 echo "User is set to $USER"
 echo "Project_path is set to $PROJECT_PATH"
 
-# Detect the package manager
-echo "Detecting package manager"
-if command -v pacman >/dev/null 2>&1; then
-    PACKAGE_MANAGER="pacman"
-    echo "Detected pacman as package manager"
-elif command -v apt-get >/dev/null 2>&1; then
-    PACKAGE_MANAGER="apt"
-    echo "Detected apt as package manager"
-# Add other package managers here
-else
-    echo "Package manager not supported"
-    exit 1
-fi
 
 echo "Updating the system"
 update_system
 
-install_packages git base-devel go
+install_packages git base-devel go yq
 
 # Check if yay is already installed
 if ! command -v yay &> /dev/null; then
