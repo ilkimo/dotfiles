@@ -28,7 +28,6 @@ echo "Project_path is set to $PROJECT_PATH"
 echo "Sourcing library script with functions"
 source "${PROJECT_PATH}/provisioning/lib/packages-installer.sh"
 
-ls /vagrant
 echo "Updating the system"
 update_system
 
