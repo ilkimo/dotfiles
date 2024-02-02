@@ -5,12 +5,16 @@ if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
     USER="vagrant"
 else
-    PROJECT_PATH="$(pwd)"
+    # Get the directory where the script is located
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+    # Get the parent directory of where the script is located
+    PROJECT_PATH="$(dirname "$SCRIPT_DIR")"
+
     # Check if the .env file exists and source it
-    if [ -f "./secrets/.env" ]; then
+    if [ -f "$PROJECT_PATH/secrets/.env" ]; then
         echo "Loading environment variables from .env file..."
         set -o allexport
-        source "./secrets/.env"
+        source "$PROJECT_PATH/secrets/.env"
         set +o allexport
     else
         echo "No .env file found in secrets directory, using default values"
@@ -94,10 +98,8 @@ if [ ! -d "$USER_HOME" ]; then
 
     # Attempt to create the directory with sudo
     sudo mkdir "$USER_HOME"
-
     # Change the ownership of the directory to the user
     sudo chown "$USER:$USER" "$USER_HOME"
-
     # Set the appropriate permissions for the home directory
     sudo chmod 700 "$USER_HOME"
 
