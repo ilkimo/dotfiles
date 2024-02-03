@@ -31,7 +31,7 @@ source "${PROJECT_PATH}/provisioning/lib/packages-installer.sh"
 echo "Updating the system"
 update_system
 
-install_packages git base-devel go yq
+install_packages git base-devel go go-yq
 
 # Check if yay is already installed
 if ! command -v yay &> /dev/null; then
