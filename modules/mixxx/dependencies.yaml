@@ -1,0 +1,18 @@
+packages:
+  - name: libebur128
+    default_source: aur
+    # alternative_sources:
+    #   - http://example.com/repo
+    #   - aur
+  - name: chromaprint
+    default_source: aur
+  - name: ccache
+    default_source: aur
+  - name: benchmark
+    default_source: aur
+  - name: qt6-5compat
+    default_source: aur
+  - name: gtest
+    default_source: aur
+  - name: libkeyfinder
+    default_source: aur

@@ -1,107 +1,20 @@
 #!/bin/bash
 
-# Function to update the system using the detected package manager
-update_system() {
-    echo "Updating the system..."
-
-    case $PACKAGE_MANAGER in
-        pacman)
-            sudo pacman -Syu --noconfirm || {
-                echo "Failed to update the system"
-                exit 1
-            }
-            ;;
-        apt)
-            sudo apt-get update && sudo apt-get upgrade -y || {
-                echo "Failed to update the system"
-                exit 1
-            }
-            ;;
-        # Add other package manager update commands here
-    esac
-}
-
-# Function to install a package using the detected package manager
-install_package() {
-    local package=$1
-    echo "Installing package: $package"
-
-    case $PACKAGE_MANAGER in
-        pacman)
-            sudo pacman -S --noconfirm $package || {
-                echo "Failed to install $package"
-                exit 1
-            }
-            ;;
-        apt)
-            sudo apt-get install -y $package || {
-                echo "Failed to install $package"
-                exit 1
-            }
-            ;;
-        # Add other package manager cases here
-    esac
-}
-
-# Function to install multiple packages using the detected package manager
-install_packages() {
-    local packages=("$@")  # Array of packages
-    echo "Installing packages: ${packages[*]}"
-
-    case $PACKAGE_MANAGER in
-        pacman)
-            local official_packages=()  # Packages found in official repos
-            local aur_packages=()       # Packages likely from AUR
-
-            # Check each package if it's in the official repos or AUR
-            for package in "${packages[@]}"; do
-                if pacman -Si $package &> /dev/null; then
-                    official_packages+=("$package")
-                else
-                    aur_packages+=("$package")
-                fi
-            done
-
-            # Install found packages with pacman
-            if [ ${#official_packages[@]} -ne 0 ]; then
-		echo "Installing the sequent packages with pacman: ${official_packages[*]}"
-        	sudo pacman -S --noconfirm --needed "${official_packages[@]}" || {
-                    echo "Failed to install official repo packages: ${official_packages[*]}"
-                    exit 1
-                }
-            fi
-
-            # Install AUR packages with yay
-            if [ ${#aur_packages[@]} -ne 0 ]; then
-		echo "Installing the sequent packages with yay: ${aur_packages[*]}"
-                yay -S --noconfirm --needed --useask "${aur_packages[@]}" || {
-                    echo "Failed to install AUR packages: ${aur_packages[*]}"
-                    exit 1
-                }
-            fi
-            ;;
-        apt)
-            sudo apt-get install -y "${packages[@]}" || {
-                echo "Failed to install packages: ${packages[*]}"
-                exit 1
-            }
-            ;;
-        # Add other package manager cases here
-    esac
-}
-
-# START SCRIPT -----------------------------------------------------------------------------
 # Set PROJECT_PATH based on whether the script is running under Vagrant
 if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
     USER="vagrant"
 else
-    PROJECT_PATH="$(pwd)"
+    # Get the directory where the script is located
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+    # Get the parent directory of where the script is located
+    PROJECT_PATH="$(dirname "$SCRIPT_DIR")"
+
     # Check if the .env file exists and source it
-    if [ -f "./secrets/.env" ]; then
+    if [ -f "$PROJECT_PATH/secrets/.env" ]; then
         echo "Loading environment variables from .env file..."
         set -o allexport
-        source "./secrets/.env"
+        source "$PROJECT_PATH/secrets/.env"
         set +o allexport
     else
         echo "No .env file found in secrets directory, using default values"
@@ -112,24 +25,13 @@ fi
 echo "User is set to $USER"
 echo "Project_path is set to $PROJECT_PATH"
 
-# Detect the package manager
-echo "Detecting package manager"
-if command -v pacman >/dev/null 2>&1; then
-    PACKAGE_MANAGER="pacman"
-    echo "Detected pacman as package manager"
-elif command -v apt-get >/dev/null 2>&1; then
-    PACKAGE_MANAGER="apt"
-    echo "Detected apt as package manager"
-# Add other package managers here
-else
-    echo "Package manager not supported"
-    exit 1
-fi
+echo "Sourcing library script with functions"
+source "${PROJECT_PATH}/provisioning/lib/packages-installer.sh"
 
 echo "Updating the system"
 update_system
 
-install_packages git base-devel go
+install_packages git base-devel go go-yq
 
 # Check if yay is already installed
 if ! command -v yay &> /dev/null; then
@@ -152,6 +54,14 @@ echo "Installing other packages"
 install_packages sl cmatrix cowsay lolcat fastfetch xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop imagemagick code kubectl helm alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition fluxcd perl-image-exiftool perl-anyevent-i3 terraform obsidian vagrant virtualbox
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
+
+echo "----------------------------------------"
+echo "---------- Installing modules ----------"
+echo "----------------------------------------"
+install_modules "${PROJECT_PATH}/modules-to-provision.yaml" "${PROJECT_PATH}/modules" "~/repos/provisioned_modules"
+echo "----------------------------------------"
+echo "---------- Modules installed ----------"
+echo "----------------------------------------"
 
 echo "Add slick-greeter configuration"
 sudo cp "$PROJECT_PATH/display-manager/slick-greeter.conf" /etc/lightdm/slick-greeter.conf
@@ -185,10 +95,8 @@ if [ ! -d "$USER_HOME" ]; then
 
     # Attempt to create the directory with sudo
     sudo mkdir "$USER_HOME"
-
     # Change the ownership of the directory to the user
     sudo chown "$USER:$USER" "$USER_HOME"
-
     # Set the appropriate permissions for the home directory
     sudo chmod 700 "$USER_HOME"
 

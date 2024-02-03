@@ -411,11 +411,7 @@ bindsym Print exec "maim ~/Pictures/$(date +%F-%T)-screenshot.png"
 bindsym --release $mod+Print exec "maim -i $(xdotool getactivewindow) ~/Pictures/$(date +%F-%T)-screenshot.png"
 
 # Screenshot of a selected area
-bindsym --release Shift+Print exec "maim -s | xclip -selection clipboard -t image/png -i"
-
-# Kimo multi monitor specifics
-# the command ($ exec_always) also executes on i3 restart
-# exec_always xrandr --output DP-2 --left-of DP-0 --output DP-4 --right-of DP-0
+bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot.png"
 
 # Kimo start picom compositor
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
