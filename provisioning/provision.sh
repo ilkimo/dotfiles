@@ -58,7 +58,7 @@ install_packages sl cmatrix cowsay lolcat fastfetch xorg-server nvidia nvidia-ut
 echo "----------------------------------------"
 echo "---------- Installing modules ----------"
 echo "----------------------------------------"
-install_modules "${PROJECT_PATH}/modules-to-provision.yaml" "${PROJECT_PATH}/modules"
+install_modules "${PROJECT_PATH}/modules-to-provision.yaml" "${PROJECT_PATH}/modules" "~/repos/provisioned_modules"
 echo "----------------------------------------"
 echo "---------- Modules installed ----------"
 echo "----------------------------------------"

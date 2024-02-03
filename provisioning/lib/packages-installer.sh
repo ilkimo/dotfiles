@@ -86,25 +86,36 @@ install_from_git() {
     local repo_url=$1
     local module_name=$2
     local modules_dir=$3
+    local modules_git_clone_path=$4
 
     # Correctly build the path to the module directory
     local module_path="$modules_dir/$module_name"
     
-    # Ensure the directory exists
-    mkdir -p "$module_path"
+    echo "Checking if $modules_git_clone_path already exists..."
+    if [ -d "$modules_git_clone_path" ]; then
+        echo "$modules_git_clone_path already exists. Skipping cloning."
+        return 0  # Exit successfully if the directory already exists
+    fi
 
-    # Clone the repo into the module_path
-    if git clone "$repo_url" "$module_path"; then
+    # If the directory does not exist, proceed with cloning
+    echo "Creating directory $modules_dir"
+    mkdir -p "$modules_dir"
+    echo "Cloning repository $repo_url into $modules_git_clone_path"
+    
+    if git clone "$repo_url" "$modules_git_clone_path"; then
+        echo "Repository cloned successfully."
         local install_script_path="$module_path/install.sh"
         if [[ -f "$install_script_path" ]]; then
+            echo "Found install script. Executing..."
             chmod +x "$install_script_path"
-            (cd "$module_path" && ./install.sh)
+            (cd "$module_path" && ./install.sh "$modules_git_clone_path")
             return $?
         else
-            echo "No install.sh found in $repo_url"
+            echo "No install.sh found in $repo_url. Installation cannot proceed."
             return 1
         fi
     else
+        echo "Failed to clone $repo_url into $modules_git_clone_path."
         return 1
     fi
 }
@@ -113,6 +124,7 @@ install_from_git() {
 install_modules() {
     local yaml_file=$1  # Path to the modules-to-provision.yaml file
     local modules_dir=$2  # Base directory for modules
+    local modules_installation_dir=$3 # Base directory for git clone operation
 
     # Ensure the yaml_file path is absolute or correctly relative to the current script
     if [[ ! -f "$yaml_file" ]]; then
@@ -143,7 +155,8 @@ install_modules() {
                     echo "Failed to install $name from package repository"
                 fi
             else
-                if install_from_git "$source" "$name" "$modules_dir"; then
+                echo "Starting git repository installation for source $source"
+                if install_from_git "$source" "$name" "$modules_dir" "$modules_installation_dir"; then
                     echo "Successfully installed $name from $source"
                     break
                 else
