@@ -260,17 +260,17 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh
 exec_always --no-startup-id picom -b
 #exec --no-startup-id manjaro-hello
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-exec --no-startup-id clipit
+#exec --no-startup-id nm-applet
+#exec --no-startup-id xfce4-power-manager
+#exec --no-startup-id pamac-tray
+#exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
-exec --no-startup-id start_conky_maia
+#exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
 #exec --no-startup-id xautolock -time 10 -locker blurlock
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
+#exec_always --no-startup-id ff-theme-util
+#exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id setxkbmap us -variant colemak_dh
 
 # Color palette used for the terminal ( ~/.Xresources file )
@@ -449,7 +449,7 @@ bindsym $mod+z [class="Bitwarden"] scratchpad show
 
 for_window [class="Spotify"] move window to scratchpad, resize set 90ppt 80ppt, resize set 90ppt 80ppt
 #for_window [class="Spotify"] move window to center
-bindsym $mod+Shift+comma exec spotify-launcher
+bindsym $mod+Shift+comma exec spotify
 bindsym $mod+comma [class="Spotify"] scratchpad show
 
 for_window [class="TelegramDesktop"] move window to scratchpad

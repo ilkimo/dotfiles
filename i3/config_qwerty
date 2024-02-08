@@ -446,7 +446,7 @@ bindsym $mod+b [class="Bitwarden"] scratchpad show
 
 for_window [class="Spotify"] move window to scratchpad, resize set 90ppt 80ppt, resize set 90ppt 80ppt
 #for_window [class="Spotify"] move window to center
-bindsym $mod+Shift+comma exec spotify-launcher
+bindsym $mod+Shift+comma exec spotify
 bindsym $mod+comma [class="Spotify"] scratchpad show
 
 for_window [class="TelegramDesktop"] move window to scratchpad
