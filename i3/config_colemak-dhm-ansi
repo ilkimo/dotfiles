@@ -419,6 +419,8 @@ exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/l
 bindsym $mod+semicolon exec --no-startup-id polybar-msg cmd toggle
 
 exec_always --no-startup-id safeeyes
+# Exec Windows startup sound
+exec --no-startup-id sleep 5; mpg123 ~/repos/dotfiles/i3/sounds/Windows-xp-startup-sound-and-error.mp3
 
 # Kimo scratchpads
 # Make the currently focused window a scratchpad
@@ -462,3 +464,4 @@ bindsym $mod+Shift+w exec ~/repos/dotfiles/i3/set-wallpaper.sh
 exec_always --no-startup-id touch ~/.config/i3/dynamic_bindsym.conf
 include ~/.config/i3/dynamic_bindsym.conf
 bindsym $mod+Shift+period exec ~/.config/i3/dynamic_bindsym.sh
+
