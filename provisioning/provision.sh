@@ -195,6 +195,9 @@ ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Regular.ttf" /usr/share/fonts/TTF/Fi
 ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Retina.ttf
 ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-SemiBold.ttf
 
+# Install Polybar
+ln -s "$PROJECT_PATH/polybar/polybar-themes/simple" "$USER_HOME/.config/polybar"
+
 # Set default applications
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
