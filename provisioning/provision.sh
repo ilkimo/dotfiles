@@ -174,6 +174,27 @@ fi
 ln -sf "$PROJECT_PATH/secrets/.bashrc" "$USER_HOME/.bashrc"
 ln -sf "$PROJECT_PATH/bash/bash_customizations" "$USER_HOME/.bash_customizations"
 
+# Set font
+mkdir -p /usr/share/fonts/TTF
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Bold.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Light.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Medium.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Bold.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Light.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Medium.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Regular.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Retina.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-SemiBold.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Bold.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Light.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Medium.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Regular.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Retina.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-SemiBold.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Retina.ttf
+ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-SemiBold.ttf
+
 # Set default applications
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
