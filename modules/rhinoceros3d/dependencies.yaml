@@ -1,0 +1,6 @@
+#packages:
+#  - name: libebur128
+#    default_source: aur
+    # alternative_sources:
+    #   - http://example.com/repo
+    #   - aur
