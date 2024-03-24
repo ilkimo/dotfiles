@@ -157,7 +157,6 @@ sudo chown --recursive "$USER:$USER" ~/.config/kitty
 # Setup Neovim links
 # In Vagrant this won't work, I think that this is because of the presence of .gitignored files from the host system (and probably cache files that tell neovim that everything is updated or something like that). To make it work on Vagrant, clone the repo directly instead of linking it like this.
 ln -sf $PROJECT_PATH/kickstart.nvim ~/.config/nvim
-ln -sf $PROJECT_PATH/kickstart.nvim/init-qwerty.lua ~/.config/nvim/init.lua
 
 # Set ~/.bash_aliases if ./secrets/.bash_aliases exists
 if [ -e "$PROJECT_PATH/secrets/.bash_aliases" ]; then
