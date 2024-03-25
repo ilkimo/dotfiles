@@ -12,8 +12,8 @@ if [ -n "$WINDOW_CLASS" ]; then
     echo "bindsym \$mod+period [class=\"$WINDOW_CLASS\"] scratchpad show" > ~/.config/i3/dynamic_bindsym.conf;
     # Reload i3 configuration
     i3-msg reload;
-    notify-send "binded $WINDOW_CLASS";
+    notify-send -t 2000 "binded $WINDOW_CLASS";
 else
     echo "No focused window found.";
-    notify-send "Error not found";
+    notify-send -t 5000 "Error not found";
 fi
