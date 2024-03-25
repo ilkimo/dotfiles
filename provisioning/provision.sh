@@ -124,7 +124,8 @@ sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen ~/Pictures/lock-scre
 
 # Setup i3 symlinks
 echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
-mkdir -p ~/.config/i3
+mkdir -p "$USER_HOME/.config/i3"
+touch "$USER_HOME/.config/i3/dynamic_bindsym.conf"
 ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
 ln -sf $PROJECT_PATH/i3/dynamic_bindsym.sh ~/.config/i3/dynamic_bindsym.sh
 ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
