@@ -266,8 +266,12 @@ bindsym $mod+Ctrl+i exec ~/.config/i3/set-lock-screen.sh
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh
 exec_always --no-startup-id picom -b
+
+# SET WALLPAPER AND POLYBAR HAVE TO BE EXECUTED IN THIS ORDER
+exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh --cuts && bash ~/.config/polybar/cuts/scripts/pywal.sh ~/Pictures/wallpapers/wallpaper;
+
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
@@ -422,9 +426,6 @@ bindsym --release $mod+Print exec "maim -i $(xdotool getactivewindow) ~/Pictures
 # Screenshot of a selected area
 bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot.png"
 
-# Kimo start picom compositor
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/razer-AI-generated/Fractalandia.png;
 bindsym $mod+semicolon exec --no-startup-id polybar-msg cmd toggle
 
 exec_always --no-startup-id safeeyes
