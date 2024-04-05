@@ -108,10 +108,17 @@ while true; do
 
     # Build the feh command with wallpaper file paths for the first N connected displays
     feh_command="feh"
-    for display in $(xrandr | grep " connected" | awk '{print $1}'); do
+    main_image=""
+    for display in $(xrandr | grep " connected" | grep -v "None-1-1" | awk '{print $1}'); do
         if [ -n "${shuffled_wallpapers[0]}" ]; then
             # Strip out the NUM_ prefix and then add the path to the feh_command
             path_without_num_prefix=${shuffled_wallpapers[0]#*_}
+            
+            # Assign first image to main_image
+            if [ -z "$main_image" ]; then
+                main_image=${path_without_num_prefix}
+            fi
+
             feh_command+=" --bg-fill '${path_without_num_prefix}'"
             shuffled_wallpapers=("${shuffled_wallpapers[@]:1}")
         fi
@@ -120,6 +127,9 @@ while true; do
     # Execute the feh command and check its exit status
     if eval "$feh_command"; then
         log "TRACE" "executed --> $feh_command"
+        if [ -n "$main_image" ]; then
+            ~/.config/polybar/cuts/scripts/pywal.sh "$main_image"
+        fi
     else
         log "ERROR" "Failed to set wallpaper with feh. Command: $feh_command"
     fi
