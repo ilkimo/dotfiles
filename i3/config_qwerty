@@ -252,6 +252,11 @@ mode "resize" {
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize shrink width 10 px or 10 ppt
 
+        bindsym w move up 10 px
+        bindsym a move left 10 px
+        bindsym s move down 10 px
+        bindsym s move right 10 px
+
         # exit resize mode: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
