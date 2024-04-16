@@ -25,6 +25,14 @@ bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+Shift+q kill
+# The middle button over a titlebar kills the window
+bindsym --release button2 kill
+
+# The middle button and a modifier over any part of the window kills the window
+bindsym --whole-window $mod+button2 kill
+
+# The right button toggles floating
+bindsym $mod+button3 floating toggle
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id rofi -show combi -show-icons
@@ -188,6 +196,7 @@ for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
 for_window [title="About Pale Moon"] floating enable
 for_window [class="Pamac-manager"] floating enable
+for_window [class="XCalc"] floating enable
 #for_window [class="Pavucontrol"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
@@ -243,6 +252,11 @@ mode "resize" {
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize shrink width 10 px or 10 ppt
 
+        bindsym w move up 10 px
+        bindsym a move left 10 px
+        bindsym s move down 10 px
+        bindsym s move right 10 px
+
         # exit resize mode: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -256,8 +270,8 @@ bindsym $mod+Ctrl+i exec ~/.config/i3/set-lock-screen.sh
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh
 exec_always --no-startup-id picom -b
+
 #exec --no-startup-id manjaro-hello
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
@@ -271,6 +285,8 @@ exec --no-startup-id start_conky_maia
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id setxkbmap us
+
+exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh; ~/.config/polybar/launch.sh --cuts && bash ~/.config/polybar/cuts/scripts/pywal.sh ~/Pictures/wallpapers/wallpaper;
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -416,10 +432,12 @@ bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot
 # the command ($ exec_always) also executes on i3 restart
 # exec_always xrandr --output DP-2 --left-of DP-0 --output DP-4 --right-of DP-0
 
-# Kimo start picom compositor
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/repos/dotfiles/polybar/polybar-themes/simple/launch.sh --cuts && bash ~/repos/dotfiles/polybar/polybar-themes/simple/scripts/pywal.sh ~/kimo-data/all/fun/images/wallpapers/1920x1080/wp5585400-anime-girl-4k-3d-wallpapers.jpg;
 bindsym $mod+P exec --no-startup-id polybar-msg cmd toggle
+
+exec_always --no-startup-id safeeyes
+# Exec Windows startup sound
+exec --no-startup-id sleep 5; mpg123 ~/repos/dotfiles/i3/sounds/Windows-xp-startup-sound-and-error.mp3
+bindsym $mod+Ctrl+Shift+w exec mpg123 ~/repos/dotfiles/i3/sounds/Windows-xp-startup-sound-and-error.mp3
 
 # Kimo scratchpads
 # Make the currently focused window a scratchpad

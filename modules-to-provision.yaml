@@ -1,0 +1,11 @@
+modules:
+  - name: mixxx
+    relative_path: ./modules/mixxx
+    alternative_sources:
+      - package_repository
+      - https://github.com/mixxxdj/mixxx
+  # - name: another-package
+  #   relative_path: ./modules/another
+  #   alternative_sources:
+  #     - https://github.com/another/app
+  #     - aur

@@ -1,106 +1,20 @@
 #!/bin/bash
-# Function to update the system using the detected package manager
-update_system() {
-    echo "Updating the system..."
 
-    case $PACKAGE_MANAGER in
-        pacman)
-            sudo pacman -Syu --noconfirm || {
-                echo "Failed to update the system"
-                exit 1
-            }
-            ;;
-        apt)
-            sudo apt-get update && sudo apt-get upgrade -y || {
-                echo "Failed to update the system"
-                exit 1
-            }
-            ;;
-        # Add other package manager update commands here
-    esac
-}
-
-# Function to install a package using the detected package manager
-install_package() {
-    local package=$1
-    echo "Installing package: $package"
-
-    case $PACKAGE_MANAGER in
-        pacman)
-            sudo pacman -S --noconfirm $package || {
-                echo "Failed to install $package"
-                exit 1
-            }
-            ;;
-        apt)
-            sudo apt-get install -y $package || {
-                echo "Failed to install $package"
-                exit 1
-            }
-            ;;
-        # Add other package manager cases here
-    esac
-}
-
-# Function to install multiple packages using the detected package manager
-install_packages() {
-    local packages=("$@")  # Array of packages
-    echo "Installing packages: ${packages[*]}"
-
-    case $PACKAGE_MANAGER in
-        pacman)
-            local official_packages=()  # Packages found in official repos
-            local aur_packages=()       # Packages likely from AUR
-
-            # Check each package if it's in the official repos or AUR
-            for package in "${packages[@]}"; do
-                if pacman -Si $package &> /dev/null; then
-                    official_packages+=("$package")
-                else
-                    aur_packages+=("$package")
-                fi
-            done
-
-            # Install found packages with pacman
-            if [ ${#official_packages[@]} -ne 0 ]; then
-		echo "Installing the sequent packages with pacman: ${official_packages[*]}"
-        	sudo pacman -S --noconfirm --needed "${official_packages[@]}" || {
-                    echo "Failed to install official repo packages: ${official_packages[*]}"
-                    exit 1
-                }
-            fi
-
-            # Install AUR packages with yay
-            if [ ${#aur_packages[@]} -ne 0 ]; then
-		echo "Installing the sequent packages with yay: ${aur_packages[*]}"
-                yay -S --noconfirm --needed --useask "${aur_packages[@]}" || {
-                    echo "Failed to install AUR packages: ${aur_packages[*]}"
-                    exit 1
-                }
-            fi
-            ;;
-        apt)
-            sudo apt-get install -y "${packages[@]}" || {
-                echo "Failed to install packages: ${packages[*]}"
-                exit 1
-            }
-            ;;
-        # Add other package manager cases here
-    esac
-}
-
-# START SCRIPT -----------------------------------------------------------------------------
 # Set PROJECT_PATH based on whether the script is running under Vagrant
 if [ "$VAGRANT_TEST" = "true" ]; then
     PROJECT_PATH="/vagrant"
     USER="vagrant"
 else
-    PROJECT_PATH="$(pwd)"
+    # Get the directory where the script is located
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+    # Get the parent directory of where the script is located
+    PROJECT_PATH="$(dirname "$SCRIPT_DIR")"
+
     # Check if the .env file exists and source it
-    if [ -f "./secrets/.env" ]; then
+    if [ -f "$PROJECT_PATH/secrets/.env" ]; then
         echo "Loading environment variables from .env file..."
         set -o allexport
-        source "./secrets/.env"
+        source "$PROJECT_PATH/secrets/.env"
         set +o allexport
     else
         echo "No .env file found in secrets directory, using default values"
@@ -111,24 +25,13 @@ fi
 echo "User is set to $USER"
 echo "Project_path is set to $PROJECT_PATH"
 
-# Detect the package manager
-echo "Detecting package manager"
-if command -v pacman >/dev/null 2>&1; then
-    PACKAGE_MANAGER="pacman"
-    echo "Detected pacman as package manager"
-elif command -v apt-get >/dev/null 2>&1; then
-    PACKAGE_MANAGER="apt"
-    echo "Detected apt as package manager"
-# Add other package managers here
-else
-    echo "Package manager not supported"
-    exit 1
-fi
+echo "Sourcing library script with functions"
+source "${PROJECT_PATH}/provisioning/lib/packages-installer.sh"
 
 echo "Updating the system"
 update_system
 
-install_packages git base-devel go
+install_packages git base-devel go go-yq
 
 # Check if yay is already installed
 if ! command -v yay &> /dev/null; then
@@ -148,9 +51,18 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat fastfetch xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop imagemagick code kubectl kubeseal helm alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition fluxcd perl-image-exiftool perl-anyevent-i3 terraform obsidian vagrant virtualbox cheese velero go-yq kustomize kubeconform bat subsurface bat zoxide fzf istio
+install_packages sl cmatrix cowsay lolcat fastfetch xorg-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop imagemagick code kubectl kubeseal helm alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition fluxcd perl-image-exiftool perl-anyevent-i3 terraform obsidian vagrant virtualbox noto-fonts-emoji ttf-icomoon-feather-git zoxide fzf cheese velero kustomize kubeconform subsurface bat istio
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
+# ttf-icomoon-feather-git is for the polybar symbols
+
+echo "----------------------------------------"
+echo "---------- Installing modules ----------"
+echo "----------------------------------------"
+install_modules "${PROJECT_PATH}/modules-to-provision.yaml" "${PROJECT_PATH}/modules" "~/repos/provisioned_modules"
+echo "----------------------------------------"
+echo "---------- Modules installed ----------"
+echo "----------------------------------------"
 
 echo "Add slick-greeter configuration"
 sudo cp "$PROJECT_PATH/display-manager/slick-greeter.conf" /etc/lightdm/slick-greeter.conf
@@ -184,10 +96,8 @@ if [ ! -d "$USER_HOME" ]; then
 
     # Attempt to create the directory with sudo
     sudo mkdir "$USER_HOME"
-
     # Change the ownership of the directory to the user
     sudo chown "$USER:$USER" "$USER_HOME"
-
     # Set the appropriate permissions for the home directory
     sudo chmod 700 "$USER_HOME"
 
@@ -214,7 +124,8 @@ sudo cp $PROJECT_PATH/template_images/1920x1080/lock-screen ~/Pictures/lock-scre
 
 # Setup i3 symlinks
 echo "Creating symlinks for i3 personal dotfiles stored in $PROJECT_PATH/i3"
-mkdir -p ~/.config/i3
+mkdir -p "$USER_HOME/.config/i3"
+touch "$USER_HOME/.config/i3/dynamic_bindsym.conf"
 ln -sf $PROJECT_PATH/i3/config_colemak-dhm-ansi ~/.config/i3/config
 ln -sf $PROJECT_PATH/i3/dynamic_bindsym.sh ~/.config/i3/dynamic_bindsym.sh
 ln -sf $PROJECT_PATH/i3/set-wallpaper.sh ~/.config/i3/set-wallpaper.sh
@@ -247,7 +158,6 @@ sudo chown --recursive "$USER:$USER" ~/.config/kitty
 # Setup Neovim links
 # In Vagrant this won't work, I think that this is because of the presence of .gitignored files from the host system (and probably cache files that tell neovim that everything is updated or something like that). To make it work on Vagrant, clone the repo directly instead of linking it like this.
 ln -sf $PROJECT_PATH/kickstart.nvim ~/.config/nvim
-ln -sf $PROJECT_PATH/kickstart.nvim/init-qwerty.lua ~/.config/nvim/init.lua
 
 # Set ~/.bash_aliases if ./secrets/.bash_aliases exists
 if [ -e "$PROJECT_PATH/secrets/.bash_aliases" ]; then
@@ -264,6 +174,30 @@ fi
 # Set ~/.bashrc and bash customization
 ln -sf "$PROJECT_PATH/secrets/.bashrc" "$USER_HOME/.bashrc"
 ln -sf "$PROJECT_PATH/bash/bash_customizations" "$USER_HOME/.bash_customizations"
+
+# Set font
+sudo mkdir -p /usr/share/fonts/TTF
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Bold.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Light.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Medium.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Bold.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Light.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Medium.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Regular.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-Retina.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontMono-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontMono-SemiBold.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Bold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Bold.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Light.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Light.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Medium.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Medium.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Regular.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-Retina.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFontPropo-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFontPropo-SemiBold.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Regular.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Regular.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-Retina.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-Retina.ttf
+sudo ln -s "$PROJECT_PATH/fonts/FiraCodeNerdFont-SemiBold.ttf" /usr/share/fonts/TTF/FiraCodeNerdFont-SemiBold.ttf
+
+# Install Polybar
+ln -s "$PROJECT_PATH/polybar/polybar-themes/simple" "$USER_HOME/.config/polybar"
 
 # Set default applications
 sudo -u $USER xdg-mime default google-chrome.desktop x-scheme-handler/http
