@@ -432,7 +432,7 @@ bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot
 # the command ($ exec_always) also executes on i3 restart
 # exec_always xrandr --output DP-2 --left-of DP-0 --output DP-4 --right-of DP-0
 
-bindsym $mod+P exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+o exec --no-startup-id polybar-msg cmd toggle
 
 exec_always --no-startup-id safeeyes
 # Exec Windows startup sound

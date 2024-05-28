@@ -429,7 +429,7 @@ bindsym --release $mod+Print exec "maim -i $(xdotool getactivewindow) ~/Pictures
 # Screenshot of a selected area
 bindsym --release Shift+Print exec "maim -s ~/Pictures/$(date +%F-%T)-screenshot.png"
 
-bindsym $mod+semicolon exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+y exec --no-startup-id polybar-msg cmd toggle
 
 exec_always --no-startup-id safeeyes
 # Exec Windows startup sound
