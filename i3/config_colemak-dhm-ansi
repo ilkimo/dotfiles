@@ -446,9 +446,9 @@ bindsym $mod+minus scratchpad show
 # To find the correct name of the class, open the app, $ xprop from terminal, then click with mouse on the app
 
 # Kimo app scratchpad configuration
-for_window [class="Pavucontrol"] move window to scratchpad
+for_window [class="pavucontrol"] move window to scratchpad
 bindsym $mod+Shift+h exec pavucontrol
-bindsym $mod+h [class="Pavucontrol"] scratchpad show
+bindsym $mod+h [class="pavucontrol"] scratchpad show
 
 for_window [class="thunderbird"] move window to scratchpad, resize set 90ppt 80ppt
 #for_window [class="thunderbird"] move window to center 
@@ -473,6 +473,7 @@ bindsym $mod+c [class="Google-chrome"] scratchpad show
 bindsym $mod+d exec google-chrome-stable
 
 bindsym $mod+Shift+w exec ~/repos/dotfiles/i3/set-wallpaper.sh
+bindsym $mod+Ctrl+w exec ~/repos/dotfiles/i3/set-alternative-wallpaper.sh
 
 # Include configuration file for dynamic bindings 
 exec_always --no-startup-id touch ~/.config/i3/dynamic_bindsym.conf

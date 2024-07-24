@@ -22,13 +22,16 @@ if [ "$NUM_DISPLAYS" -ge 3 ]; then
 
     ln -sf "$WALLPAPER_DIR_3_DISPLAYS" "$WALLPAPER_SYMLINK_POSITION"
     feh --no-xinerama --bg-scale "$WALLPAPER_SYMLINK_POSITION"
+    bash ~/.config/polybar/cuts/scripts/pywal.sh "$WALLPAPER_SYMLINK_POSITION"
 elif [ "$NUM_DISPLAYS" -eq 1 ] && xrandr | grep -q "2560x1440.* connected"; then
     echo "A"
 
     ln -sf "$WALLPAPER_DIR_1_DISPLAY_2560x1440" "$WALLPAPER_SYMLINK_POSITION"
     feh --bg-scale "$WALLPAPER_SYMLINK_POSITION"
+    bash ~/.config/polybar/cuts/scripts/pywal.sh "$WALLPAPER_SYMLINK_POSITION"
 else
     echo "B"
     ln -sf "$WALLPAPER_DIR_1_DISPLAY_1920x1080" "$WALLPAPER_SYMLINK_POSITION"
     feh --bg-fill "$WALLPAPER_SYMLINK_POSITION"
+    bash ~/.config/polybar/cuts/scripts/pywal.sh "$WALLPAPER_SYMLINK_POSITION"
 fi
