@@ -21,7 +21,15 @@
           ./modules/graphic-session/display-managers/sddm.nix
         ];
       };
-
+      old-laptop-uni = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/old-laptop-uni/configuration.nix
+          inputs.home-manager.nixosModules.default
+          ./modules/graphic-session/wayland/hyprlnd.nix
+          ./modules/graphic-session/display-managers/sddm.nix
+        ];
+      };
     };
   };
 }

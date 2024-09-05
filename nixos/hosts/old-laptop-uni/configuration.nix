@@ -15,20 +15,8 @@
   main-user.userName = "il_kimo";
 
   # Use the systemd-boot EFI boot loader.
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-      };
-    };
-    initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/794e8683-524b-481e-bc99-7aaf1d2861dd";
-  };
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -60,10 +48,10 @@
     };
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+   networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -104,7 +92,7 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+# Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.il_kimo = {
     isNormalUser = true;
     extraGroups = [ ]; # Enable ‘sudo’ for the user.
@@ -113,7 +101,6 @@
       sl
       cmatrix
       kitty
-      git
       google-chrome
       vscode
     ];
@@ -134,9 +121,10 @@
     wget
     docker
     tmux
+    git
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
+# Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
@@ -147,7 +135,11 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+    passwordAuthentication = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
