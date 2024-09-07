@@ -6,6 +6,9 @@ let
 in
 
 {
+  imports = [
+    ../../modules/home-manager/terminals/kitty.nix
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "il_kimo";
