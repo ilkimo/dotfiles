@@ -2,7 +2,7 @@
 
 let
   # Define a variable that checks if the kitty module is imported
-  hasKitty = config.kitty.enable;
+  hasKitty = config.kitty;
 in
 
 {
@@ -52,7 +52,7 @@ in
     # Prova Kimo
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
     # Conditionally manage the kitty config files only if kitty is enabled
-    lib.mkIf hasKitty {
+    lib.mkIf hasKitty.enable {
       ".config/kitty" = {
         source = ../../../kitty;
         recursive = true;
