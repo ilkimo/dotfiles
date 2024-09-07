@@ -14,7 +14,7 @@ in
   imports = [
     ./hardware-configuration.nix
     ../../modules/users/main-user.nix
-    (import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal; })
+    (import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal lib; })
   ];
 
   main-user.enable = true;
