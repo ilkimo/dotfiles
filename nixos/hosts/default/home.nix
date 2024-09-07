@@ -9,7 +9,7 @@ in
   options.kitty = {
     enable = lib.mkEnableOption = {
       default = true;
-      description = "enable kitty module"
+      description = "enable kitty module";
     };
   };
 
