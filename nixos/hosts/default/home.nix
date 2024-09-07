@@ -2,7 +2,7 @@
 
 let
   # Define a variable that checks if the kitty module is imported
-  hasKitty = config.kitty;
+  hasKitty = config.kitty.enable;
 in
 
 {
@@ -52,18 +52,19 @@ in
     # Prova Kimo
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
     # Conditionally manage the kitty config files only if kitty is enabled
-    lib.mkIf hasKitty.enable {
-      ".config/kitty" = {
-        source = ../../../kitty;
-        recursive = true;
-      };
-    };
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+  }
+  // # Conditionally add the kitty configuration merging it to home.file
+  lib.mkIf hasKitty {
+    ".config/kitty" = {
+      source = ../../../kitty;
+      recursive = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
