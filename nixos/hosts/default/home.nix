@@ -2,7 +2,7 @@
 
 let
   # Define a variable that checks if the kitty module is imported
-  hasKitty = config.kitty ? enable && config.kitty.enable;
+  hasKitty = config.programs.kitty ? enable && config.programs.kitty.enable;
 in
 
 {

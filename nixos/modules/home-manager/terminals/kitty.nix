@@ -7,7 +7,7 @@
     description = "Enable the Kitty terminal configuration.";
   };
 
-  config = lib.mkIf config.kitty.enable {
+  config = lib.mkIf config.programs.kitty.enable {
     # Put any Kitty-specific configuration here
   };
 }
