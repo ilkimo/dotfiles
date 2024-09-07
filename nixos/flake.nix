@@ -19,7 +19,6 @@
           inputs.home-manager.nixosModules.default
           ./modules/graphic-session/wayland/hyprlnd.nix
           ./modules/graphic-session/display-managers/sddm.nix
-          ./modules/home-manager/terminals/kitty.nix
         ];
       };
       old-laptop-uni = nixpkgs.lib.nixosSystem {

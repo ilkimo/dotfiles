@@ -2,7 +2,7 @@
 
 let
   # Define a variable that checks if the kitty module is imported
-  hasKitty = config.kitty ? enable && config.kitty.enable;
+  hasKitty = config.kitty;
 in
 
 {
@@ -60,7 +60,7 @@ in
     # '';
   }
   // # Conditionally add the kitty configuration merging it to home.file
-  lib.mkIf hasKitty {
+  lib.mkIf hasKitty.enable {
     ".config/kitty" = {
       source = ../../../kitty;
       recursive = true;
