@@ -52,7 +52,7 @@ in
     # Prova Kimo
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
     # Conditionally manage the kitty config files only if kitty is enabled
-    home.file = lib.mkIf hasKitty {
+    lib.mkIf hasKitty {
       ".config/kitty" = {
         source = ../../../kitty;
         recursive = true;
