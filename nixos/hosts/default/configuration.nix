@@ -4,10 +4,12 @@
 
 { config, lib, pkgs, inputs, ... }:
 
-{
-  # Choose your terminal
+let
+  # Define your terminal here
   terminal = "kitty";  # Options: "kitty", "alacritty", etc.
+in
 
+{
   # Import terminal-specific config based on selection
   imports = [
     ./hardware-configuration.nix
