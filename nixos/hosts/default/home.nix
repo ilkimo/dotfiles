@@ -49,7 +49,7 @@
     # Conditionally manage the kitty config files only if kitty is enabled
 
     ".config/kitty" = {
-      source = ../../../dotfiles/kitty;
+      source = ../../../kitty;
       recursive = true;
     };
 
