@@ -44,7 +44,8 @@
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
-    ".config/provola.txt".source = ../../../scripts/ranker.sh;
+    # Prova Kimo
+    # ".config/provola.txt".source = ../../../scripts/ranker.sh;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
