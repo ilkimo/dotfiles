@@ -15,7 +15,7 @@ in
     ./hardware-configuration.nix
     #../../modules/users/main-user.nix
     #(import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal lib; })
-    (import ../../modules/users/main-user.nix { inherit terminal lib; })
+    (import ../../modules/users/main-user.nix { inherit terminal lib config pkgs; })
   ];
 
   main-user.enable = true;
