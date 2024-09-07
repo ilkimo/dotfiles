@@ -13,7 +13,7 @@
 
   main-user.enable = true;
   main-user.userName = "il_kimo";
-  programs.kitty.enable = true;
+  programs.kitty.enable = false;
 
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
