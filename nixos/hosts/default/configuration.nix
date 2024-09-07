@@ -5,11 +5,15 @@
 { config, lib, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/users/main-user.nix
-    ];
+  # Choose your terminal
+  terminal = "kitty";  # Options: "kitty", "alacritty", etc.
+
+  # Import terminal-specific config based on selection
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/users/main-user.nix
+    (import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal; })
+  ];
 
   main-user.enable = true;
   main-user.userName = "il_kimo";
