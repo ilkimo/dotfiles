@@ -60,7 +60,7 @@ in
     # '';
   }
   // # Conditionally add the kitty configuration merging it to home.file
-  lib.mkIf hasKitty {
+  lib.mkIf !hasKitty {
     ".config/kitty" = {
       source = ../../../kitty;
       recursive = true;
