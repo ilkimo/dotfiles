@@ -1,13 +1,17 @@
 { terminal, lib, ... }:
 
 {
-  home = lib.mkIf (terminal == "default" || terminal == "kitty") {
-    file.".config/kitty" = {
+  # Configure Kitty (if selected)
+  home.file = lib.mkIf (terminal == "default" || terminal == "kitty") {
+    ".config/kitty" = {
       source = ./dotfiles/kitty;
       recursive = true;
     };
-  } // lib.mkIf (terminal == "alacritty") {
-    file.".config/alacritty" = {
+  };
+
+  # Configure Alacritty (if selected)
+  home.file = lib.mkIf (terminal == "alacritty") {
+    ".config/alacritty" = {
       source = ./dotfiles/alacritty;
       recursive = true;
     };
