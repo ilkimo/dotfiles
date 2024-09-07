@@ -52,10 +52,11 @@ in
     # Prova Kimo
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
     # Conditionally manage the kitty config files only if kitty is enabled
-
-    ".config/kitty" = {
-      source = ../../../kitty;
-      recursive = true;
+    if hasKitty then {
+      ".config/kitty" = {
+        source = ../../../kitty;
+        recursive = true;
+      };
     };
 
     # # You can also set the file content immediately.
