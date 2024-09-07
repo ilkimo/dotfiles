@@ -1,4 +1,4 @@
-{ terminal, ... }:
+{ terminal, lib, ... }:
 
 {
   programs = lib.mkIf (terminal == "default" || terminal == "kitty") {
