@@ -2,10 +2,17 @@
 
 let
   # Define a variable that checks if the kitty module is imported
-  hasKitty = config ? programs.kitty.enable;
+  hasKitty = config.kitty.enable;
 in
 
 {
+  options.kitty = {
+    enable = lib.mkEnableOption = {
+      default = true;
+      description = "enable kitty module"
+    };
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "il_kimo";
