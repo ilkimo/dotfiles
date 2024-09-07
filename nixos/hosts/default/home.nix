@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 
+let
+  # Define a variable that checks if the kitty module is imported
+  hasKitty = config ? programs.kitty.enable;
+in
+
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -46,6 +51,13 @@
 
     # Prova Kimo
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
+    # Conditionally manage the kitty config files only if kitty is enabled
+    home.file = lib.mkIf hasKitty {
+      ".config/kitty" = {
+        source = ../../../kitty;
+        recursive = true;
+      };
+    };
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
