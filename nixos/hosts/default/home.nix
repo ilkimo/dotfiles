@@ -1,4 +1,4 @@
-{ config, pkgs, terminal, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -48,24 +48,18 @@
     # ".config/provola.txt".source = ../../../scripts/ranker.sh;
     # Conditionally manage the kitty config files only if kitty is enabled
 
+    ".config/kitty" = {
+      source = ../../../dotfiles/kitty;
+      recursive = true;
+    };
+
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  } // # Update option with dynamic stuff
-  lib.mkIf (terminal == "default" || terminal == "kitty") {
-    ".config/kitty" = {
-      source = ./dotfiles/kitty;
-      recursive = true;
-    };
-  } // lib.mkIf (terminal == "alacritty") {
-    ".config/alacritty" = {
-      source = ./dotfiles/alacritty;
-      recursive = true;
-    };
   };
-  
+
 # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
