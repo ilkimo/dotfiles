@@ -5,7 +5,7 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  terminal = "alacritty";  # Define your terminal choice
+  terminal = "kitty";  # Define your terminal choice
 in
 
 {
