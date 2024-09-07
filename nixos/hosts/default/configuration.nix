@@ -4,6 +4,10 @@
 
 { config, lib, pkgs, inputs, ... }:
 
+let
+  terminal = "kitty";  # Define your terminal choice
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -120,7 +124,7 @@
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs terminal; };
     users = {
       "il_kimo" = import ./home.nix;
     };
