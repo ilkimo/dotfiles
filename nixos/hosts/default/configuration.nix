@@ -13,8 +13,9 @@ in
   # Import terminal-specific config based on selection
   imports = [
     ./hardware-configuration.nix
-    ../../modules/users/main-user.nix
-    (import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal lib; })
+    #../../modules/users/main-user.nix
+    #(import ../../modules/home-manager/terminals/terminal-config.nix { inherit terminal lib; })
+    (import ../../modules/users/main-user.nix { inherit terminal lib; })
   ];
 
   main-user.enable = true;

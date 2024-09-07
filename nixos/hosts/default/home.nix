@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, terminal, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -53,8 +53,19 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+  } // # Update option with dynamic stuff
+  lib.mkIf (terminal == "default" || terminal == "kitty") {
+    ".config/kitty" = {
+      source = ./dotfiles/kitty;
+      recursive = true;
+    };
+  } // lib.mkIf (terminal == "alacritty") {
+    ".config/alacritty" = {
+      source = ./dotfiles/alacritty;
+      recursive = true;
+    };
   };
-
+  
 # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -77,6 +88,4 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
 }
