@@ -61,7 +61,7 @@
   } //
   lib.mkIf (terminal == "kitty" || terminal == "default") {
     ".config/kitty" = {
-      source = ./dotfiles/kitty;
+      source = ../../../kitty;
       recursive = true;
     };
   };
