@@ -107,13 +107,12 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.il_kimo = {
     isNormalUser = true;
-    extraGroups = [ ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ ]; # To enable ‘sudo’ for the user add the 'wheel' group.
     packages = with pkgs; [
       tree
       sl
       cmatrix
       kitty
-      git
       google-chrome
       vscode
     ];
@@ -132,6 +131,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    git
     docker
     tmux
   ];
