@@ -9,11 +9,12 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/users/main-user.nix
+      ../../modules/home-manager/terminals/kitty.nix
     ];
 
   main-user.enable = true;
   main-user.userName = "il_kimo";
-  programs.kitty.enable = true;
+  kitty.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
