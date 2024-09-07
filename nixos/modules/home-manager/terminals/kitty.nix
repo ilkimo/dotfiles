@@ -7,6 +7,5 @@
 
   config = lib.mkIf config.kitty.enable {
 
-    };
   };
 }
