@@ -58,7 +58,7 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  } //
+  } // # Update option (this is a concat, if the second argument gets evaluated)
   lib.mkIf (terminal == "kitty" || terminal == "default") {
     ".config/kitty" = {
       source = ../../../kitty;
