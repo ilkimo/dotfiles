@@ -105,6 +105,7 @@ in
       kitty
       google-chrome
       vscode
+      zsh-powerlevel10k
     ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ]);
   };
 
