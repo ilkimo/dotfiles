@@ -102,15 +102,10 @@ in
       tree
       sl
       cmatrix
+      kitty
       google-chrome
       vscode
-    ] //
-    lib.mkIf (terminal == "kitty" || terminal == "default") {
-      kitty
-    };
-  };
-
-
+    ];
   };
 
   home-manager = {
