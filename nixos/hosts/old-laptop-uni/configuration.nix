@@ -105,7 +105,7 @@ in
       kitty
       google-chrome
       vscode
-    ] ++ lib.mkIf (terminal == "kitty" || terminal == "default") [ kitty ];
+    ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ]);
   };
 
   home-manager = {
