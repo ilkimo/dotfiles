@@ -1,8 +1,10 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+# Edit this configuration file to define what should be installed on your system. Help is available in the configuration.nix(5) man page, on https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, inputs, ... }:
+
+let
+  terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
+in
 
 {
   imports =
@@ -108,7 +110,7 @@
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs terminal; };
     users = {
       "il_kimo" = import ./home.nix;
     };
@@ -119,9 +121,9 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    git
     docker
     tmux
-    git
   ];
 
 # Some programs need SUID wrappers, can be configured further or are
