@@ -17,11 +17,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    programs.zsh.enable = true;
+
     users.users.${cfg.userName} = {
       isNormalUser = true;
       initialPassword = "12345";
       description = "main user";
-      #shell = pkgs.zsh;
+      shell = pkgs.zsh;
     };
   };
 }
