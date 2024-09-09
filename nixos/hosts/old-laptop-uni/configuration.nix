@@ -4,7 +4,7 @@
 
 let
   terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
-  vibes = false;
+  vibes = true;
 in
 
 {
