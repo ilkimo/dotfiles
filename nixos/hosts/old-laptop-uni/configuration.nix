@@ -4,6 +4,7 @@
 
 let
   terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
+  vibes = true;
 in
 
 {
@@ -99,14 +100,12 @@ in
     isNormalUser = true;
     extraGroups = [ ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      tree
-      sl
-      cmatrix
       kitty
       google-chrome
       vscode
       zsh-powerlevel10k
-    ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ]);
+    ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ])
+      ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
   };
 
   home-manager = {
