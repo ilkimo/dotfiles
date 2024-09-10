@@ -7,3 +7,9 @@
 [submodule "BigBagKbdTrixXKB"]
 	path = BigBagKbdTrixXKB
 	url = git@github.com:ilkimo/BigBagKbdTrixXKB.git
+[submodule "terminal-stuff/shells/zsh/powerlevel10k"]
+	path = terminal-stuff/shells/zsh/powerlevel10k
+	url = git@github.com:ilkimo/powerlevel10k.git
+[submodule "terminal-stuff/shells/zsh/ohmyzsh"]
+	path = terminal-stuff/shells/zsh/ohmyzsh
+	url = git@github.com:ilkimo/ohmyzsh.git
