@@ -51,7 +51,7 @@ fi
 echo "yay package is located at $(which yay)"
 
 echo "Installing other packages"
-install_packages sl cmatrix cowsay lolcat fastfetch org-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop imagemagick code kubectl kubeseal helm alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition fluxcd perl-image-exiftool perl-anyevent-i3 terraform obsidian vagrant virtualbox noto-fonts-emoji ttf-icomoon-feather-git zoxide fzf cheese velero kustomize kubeconform subsurface bat istio zsh snixembed safeeyes opentofu
+install_packages sl cmatrix cowsay lolcat fastfetch org-server nvidia nvidia-utils nvidia-settings xorg-xrandr arandr xorg-xcalc vim neovim kitty ranger zathura feh tree lightdm lightdm-slick-greeter i3-wm rofi pcmanfm xclip polybar docker docker-compose maim picom pavucontrol thunderbird bitwarden spotify-launcher telegram-desktop imagemagick code kubectl kubeseal helm alsa-utils pulseaudio pulseaudio-alsa qjackctl intellij-idea-community-edition fluxcd perl-image-exiftool perl-anyevent-i3 terraform obsidian vagrant virtualbox noto-fonts-emoji ttf-icomoon-feather-git zoxide fzf cheese velero kustomize kubeconform subsurface bat istio zsh snixembed safeeyes opentofu terragrunt
 # TODO morc_menu bmenu
 # imagemagick is for image generation (directory template_images)
 # ttf-icomoon-feather-git is for the polybar symbols
