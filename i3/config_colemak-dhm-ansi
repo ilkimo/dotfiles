@@ -207,6 +207,7 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [class="pulseUI"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -288,7 +289,7 @@ exec_always --no-startup-id picom -b
 #exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id setxkbmap us -variant colemak_dh
 
-exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh; ~/.config/polybar/launch.sh --cuts && bash ~/.config/polybar/cuts/scripts/pywal.sh ~/Pictures/wallpapers/wallpaper;
+exec_always --no-startup-id ~/.config/i3/set-wallpaper.sh; sleep 5; ~/.config/polybar/launch.sh --cuts && bash ~/.config/polybar/cuts/scripts/pywal.sh ~/Pictures/wallpapers/wallpaper;
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
@@ -465,12 +466,16 @@ bindsym $mod+z [class="Bitwarden"] scratchpad show
 
 for_window [class="Spotify"] move window to scratchpad, resize set 90ppt 80ppt, resize set 90ppt 80ppt
 #for_window [class="Spotify"] move window to center
-bindsym $mod+Shift+comma exec spotify
+bindsym $mod+Shift+comma exec spotify-launcher
 bindsym $mod+comma [class="Spotify"] scratchpad show
 
 for_window [class="TelegramDesktop"] move window to scratchpad
 bindsym $mod+Shift+question exec telegram-desktop
 bindsym $mod+question [class="TelegramDesktop"] scratchpad show
+
+#for_window [class="pulseUI"] move window to scratchpad
+#bindsym $mod+Shift+period exec telegram-desktop
+#bindsym $mod+question [class="pulseUI"] scratchpad show
 
 bindsym $mod+b [class="kitty"] scratchpad show
 bindsym $mod+c [class="Google-chrome"] scratchpad show
