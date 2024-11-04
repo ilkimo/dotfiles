@@ -119,4 +119,4 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 eval "$(zoxide init --cmd cd zsh)"
 
 # Add Kubernetes clusters configuration
-export KUBECONFIG=$(find ~/.kube/clusters -name config -print0 | xargs -0 -n1 printf '%s:' | tr -d '\n')
+export KUBECONFIG=~/.kube/config:$(find ~/.kube/clusters -name config -print0 | xargs -0 -n1 printf '%s:' | tr -d '\n' | sed 's/:$//')
