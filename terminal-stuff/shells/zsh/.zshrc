@@ -114,3 +114,9 @@ source $ZSH_CUSTOM/.aliases.zsh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# Add zoxide (better cd)
+eval "$(zoxide init --cmd cd zsh)"
+
+# Add Kubernetes clusters configuration
+export KUBECONFIG=$(find ~/.kube/clusters -name config -print0 | xargs -0 -n1 printf '%s:' | tr -d '\n')
