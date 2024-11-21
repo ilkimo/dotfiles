@@ -6,6 +6,7 @@
 
 let
   terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
+  vibes = true;
 in
 
 {
@@ -99,10 +100,6 @@ in
     isNormalUser = true;
     extraGroups = [ "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
     packages = with pkgs; [
-      tree
-      sl
-      cmatrix
-      kitty
       google-chrome
       vscode
     ];
