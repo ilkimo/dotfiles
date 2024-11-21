@@ -84,7 +84,7 @@ in
 # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.il_kimo = {
     isNormalUser = true;
-    extraGroups = [ ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["dialout" "bluetooth" "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
     packages = with pkgs; [
       google-chrome
       vscode
