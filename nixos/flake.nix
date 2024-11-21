@@ -28,6 +28,7 @@
           inputs.home-manager.nixosModules.default
           ./modules/graphic-session/wayland/hyprlnd.nix
           ./modules/graphic-session/display-managers/sddm.nix
+          ./modules/common.nix
         ];
       };
     };
