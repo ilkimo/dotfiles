@@ -58,13 +58,13 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  };# // # Update option (this is a concat, if the second argument gets evaluated)
-  #lib.mkIf (terminal == "kitty" || terminal == "default") {
-  #  ".config/kitty" = {
-  #    source = ../../../kitty;
-  #    recursive = true;
-  #  };
-  #};
+  } // # Update option (this is a concat, if the second argument gets evaluated)
+  lib.mkIf (terminal == "kitty" || terminal == "default") {
+    ".config/kitty" = {
+      source = ../../../kitty;
+      recursive = true;
+    };
+  };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
