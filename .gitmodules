@@ -13,3 +13,6 @@
 [submodule "terminal-stuff/shells/zsh/ohmyzsh"]
 	path = terminal-stuff/shells/zsh/ohmyzsh
 	url = git@github.com:ilkimo/ohmyzsh.git
+[submodule "provisioning/ansible-kubernetes-installer"]
+	path = provisioning/ansible-kubernetes-installer
+	url = git@github.com:ilkimo/ansible-kubernetes-installer.git
