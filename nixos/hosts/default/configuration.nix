@@ -103,7 +103,8 @@ in
       google-chrome
       vscode
     ];
-  };
+  }; ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ])
+     ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
 
   home-manager = {
     # also pass inputs to home-manager modules
