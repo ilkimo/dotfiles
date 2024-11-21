@@ -100,7 +100,6 @@ in
     isNormalUser = true;
     extraGroups = [ ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-      kitty
       google-chrome
       vscode
       zsh-powerlevel10k
