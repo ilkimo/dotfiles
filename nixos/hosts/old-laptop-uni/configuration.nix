@@ -3,8 +3,9 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
   vibes = true;
+  terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
+  shell = "zsh";
 in
 
 {
@@ -88,8 +89,8 @@ in
     packages = with pkgs; [
       google-chrome
       vscode
-      zsh-powerlevel10k
     ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ])
+      ++ (lib.optionals (shell == "zsh" || shell == "default") [ zsh-powerlevel10k ])
       ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
   };
 
