@@ -61,7 +61,7 @@
   } // # Update option (this is a concat, if the second argument gets evaluated)
   lib.mkIf (env.terminal == "kitty" || env.terminal == "default") {
     ".config/kitty" = {
-      source = ../../../kitty;
+      source = ../../../../kitty;
       recursive = true;
     };
   };
