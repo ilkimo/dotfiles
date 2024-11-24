@@ -23,18 +23,10 @@ in
   # BEGIN handle users ----------------------------------
   main-user.enable = true;
   main-user.env = env;
+  main-user.extraSpecialArgs = inputs;
   reale-ites-user.enable = true;
   reale-ites-user.env = env;
-
-  main-user = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs env; };
-  };
-
-  reale-ites-user = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs env; };
-  };
+  reale-ites-user.extraSpecialArgs = inputs;
   # END handle users ------------------------------------
 
   # Use the systemd-boot EFI boot loader.
