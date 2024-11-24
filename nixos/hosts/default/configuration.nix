@@ -20,6 +20,7 @@ in
       ../../modules/users/work/reale-ites.nix
       ../../modules/nvidia/drivers.nix
       ../../modules/containerization/docker.nix
+      ../../modules/sound/pipewire.nix
     ];
 
   # BEGIN handle users ----------------------------------
@@ -67,14 +68,6 @@ in
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
-
-  # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
