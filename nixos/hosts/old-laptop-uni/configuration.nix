@@ -93,14 +93,14 @@ in
     packages = with pkgs; [
       google-chrome
       vscode
-    ] ++ (lib.optionals (cfg.env.terminal == "kitty" || cfg.env.terminal == "default") [ kitty ])
-      ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
-      ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
+    ] ++ (lib.optionals (env.terminal == "kitty" || env.terminal == "default") [ kitty ])
+      ++ (lib.optionals (env.shell == "zsh" || env.shell == "default") [ zsh-powerlevel10k ])
+      ++ (lib.optionals (env.vibes == true) [ tree sl cmatrix ]);
   };
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs cfg.env.terminal; };
+    extraSpecialArgs = { inherit inputs env.terminal; };
     users = {
       "il_kimo" = import ./home.nix;
     };
