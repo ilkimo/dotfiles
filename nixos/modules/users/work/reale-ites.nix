@@ -36,11 +36,11 @@ in
       ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
   };
 
-  home-manager = {
+  #home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs terminal; };
-    users = {
-      ${cfg.userName} = import ./home.nix;
-    };
-  };
+  #  extraSpecialArgs = { inherit terminal; };
+  #  users = {
+  #    ${cfg.userName} = import ./home.nix;
+  #  };
+  #};
 }
