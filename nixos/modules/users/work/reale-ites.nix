@@ -20,7 +20,7 @@ in
       default = {};
       description = "Environment configuration variables";
     };
-    
+ 
     extraSpecialArgs = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = {};
@@ -40,6 +40,14 @@ in
       ] ++ (lib.optionals (cfg.env.terminal == "kitty" || cfg.env.terminal == "default") [ kitty ])
         ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
         ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
+    };
+
+    home-manager = {
+      # also pass inputs to home-manager modules
+      extraSpecialArgs = cfg.extraSpecialArgs;
+      users = {
+        ${cfg.userName} = import ./home.nix;
+      };
     };
   };
 }

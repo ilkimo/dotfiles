@@ -23,12 +23,15 @@ in
   # BEGIN handle users ----------------------------------
   main-user.enable = true;
   main-user.env = env;
-  #main-user.extraSpecialArgs = inputs;
-  #reale-ites-user.enable = true;
-  #reale-ites-user.env = env;
-  #reale-ites-user.extraSpecialArgs = inputs;
+  reale-ites-user.enable = true;
+  reale-ites-user.env = env;
 
   main-user = {
+    # also pass inputs to home-manager modules
+    extraSpecialArgs = { inherit inputs env; };
+  };
+  
+  reale-ites-user = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs env; };
   };
@@ -49,18 +52,6 @@ in
     initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/794e8683-524b-481e-bc99-7aaf1d2861dd";
   };
   boot.loader.grub.useOSProber = true;
-
-  # nvidia drivers
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
   # Allow all unfree packages (I tried this for the nvidia drivers, maybe restricting to specific packages is a good idea)
   nixpkgs.config.allowUnfree = true;
