@@ -20,6 +20,12 @@ in
       default = {};
       description = "Environment configuration variables";
     };
+    
+    extraSpecialArgs = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = {inputs; };
+      description = "Args to pass to home manager";
+    };
   };
 
   config = lib.mkIf cfg.enable {
