@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, env,... }:
+{ lib, config, pkgs, inputs,... }:
 
 let
   cfg = config.main-user;
