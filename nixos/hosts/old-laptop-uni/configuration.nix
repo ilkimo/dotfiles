@@ -20,7 +20,7 @@ in
 
   main-user.enable = true;
   reale-ites-user.enable = true;
-  users.work.realeItes.env = env;
+  reale-ites-user.env = env;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
