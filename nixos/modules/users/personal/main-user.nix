@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs,... }:
+{ lib, config, pkgs, inputs, env, ... }:
 
 let
   cfg = config.main-user;
@@ -13,12 +13,6 @@ in
       description = ''
        username
       '';
-    };
-    
-    env = lib.mkOption {
-      type = lib.types.attrsOf lib.types.anything;
-      default = {};
-      description = "Environment configuration variables";
     };
     
     extraSpecialArgs = lib.mkOption {
@@ -50,7 +44,7 @@ in
     
     home-manager = {
       # also pass inputs to home-manager modules
-      extraSpecialArgs = { inherit inputs env; };
+      extraSpecialArgs = { extraSpecialArgs; };
       users = {
         ${cfg.userName} = import ./home.nix;
       };
