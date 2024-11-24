@@ -23,7 +23,7 @@ in
     
     extraSpecialArgs = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
-      default = {inputs; };
+      default = { inputs };
       description = "Args to pass to home manager";
     };
   };
