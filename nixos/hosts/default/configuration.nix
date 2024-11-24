@@ -23,7 +23,7 @@ in
   # BEGIN handle users ----------------------------------
   main-user.enable = true;
   main-user.env = env;
-  main-user.extraSpecialArgs = inputs;
+  #main-user.extraSpecialArgs = inputs;
   #reale-ites-user.enable = true;
   #reale-ites-user.env = env;
   #reale-ites-user.extraSpecialArgs = inputs;
