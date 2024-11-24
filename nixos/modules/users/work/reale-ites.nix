@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, env,... }:
 
 let
   cfg = config.reale-ites-user;
