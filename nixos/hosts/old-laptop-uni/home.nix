@@ -1,4 +1,4 @@
-{ config, pkgs, terminal, lib, ... }:
+{ config, pkgs, env, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -59,7 +59,7 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   } // # Update option (this is a concat, if the second argument gets evaluated)
-  lib.mkIf (terminal == "kitty" || terminal == "default") {
+  lib.mkIf (env.terminal == "kitty" || env.terminal == "default") {
     ".config/kitty" = {
       source = ../../../kitty;
       recursive = true;
