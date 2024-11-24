@@ -14,6 +14,12 @@ in
        username
       '';
     };
+    
+    env = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = {};
+      description = "Environment configuration variables";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -24,9 +30,16 @@ in
 
     users.users.${cfg.userName} = {
       isNormalUser = true;
+      extraGroups = ["dialout" "bluetooth" "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
       initialPassword = "12345";
       description = "main user";
       shell = pkgs.zsh;
+      packages = with pkgs; [
+        google-chrome
+        vscode
+      ] ++ (lib.optionals (cfg.env.terminal == "kitty" || cfg.env.terminal == "default") [ kitty ])
+        ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
+        ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
     };
   };
 }

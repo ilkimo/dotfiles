@@ -19,6 +19,7 @@ in
     ];
 
   main-user.enable = true;
+  main-user.env = env;
   reale-ites-user.enable = true;
   reale-ites-user.env = env;
 
@@ -85,18 +86,6 @@ in
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
-
-# Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.il_kimo = {
-    isNormalUser = true;
-    extraGroups = ["dialout" "bluetooth" "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
-    packages = with pkgs; [
-      google-chrome
-      vscode
-    ] ++ (lib.optionals (env.terminal == "kitty" || env.terminal == "default") [ kitty ])
-      ++ (lib.optionals (env.shell == "zsh" || env.shell == "default") [ zsh-powerlevel10k ])
-      ++ (lib.optionals (env.vibes == true) [ tree sl cmatrix ]);
-  };
 
   home-manager = {
     # also pass inputs to home-manager modules
