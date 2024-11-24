@@ -17,7 +17,6 @@ in
     ];
 
   main-user.enable = true;
-  main-user.userName = "il_kimo";
   reale-ites-user.enable = true;
 
   # Use the systemd-boot EFI boot loader.
