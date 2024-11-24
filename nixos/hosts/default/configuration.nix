@@ -38,6 +38,7 @@ in
   };
   # END handle users ------------------------------------
 
+  # BEGIN boot section ----------------------------------
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
@@ -53,6 +54,7 @@ in
     initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/794e8683-524b-481e-bc99-7aaf1d2861dd";
   };
   boot.loader.grub.useOSProber = true;
+  # END boot section ------------------------------------
 
   # Allow all unfree packages (I tried this for the nvidia drivers, maybe restricting to specific packages is a good idea)
   nixpkgs.config.allowUnfree = true;
@@ -77,7 +79,7 @@ in
   # Set your time zone.
   time.timeZone = "Europe/Rome";
 
- # Enable sound.
+  # Enable sound.
   # hardware.pulseaudio.enable = true;
   # OR
   services.pipewire = {
