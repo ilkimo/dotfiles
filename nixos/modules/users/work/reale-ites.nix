@@ -20,7 +20,15 @@ in
     users.users.${cfg.userName} = {
       isNormalUser = true;
       initialPassword = "12345";
-      description = "reale-ites user";
+      description = "kimo_ites user";
+      extraGroups = [ "bluetooth" "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
+      packages = with pkgs; [
+        google-chrome
+        vscode
+      ];
+
+
+
     };
   };
 }
