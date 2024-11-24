@@ -3,9 +3,11 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  vibes = true;
-  terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
-  shell = "zsh";
+  env = {
+    vibes = true;
+    terminal = "kitty"; # Set a terminal (some options are {kitty=default, add here})
+    shell = "zsh";
+  };
 in
 
 {
@@ -18,6 +20,7 @@ in
 
   main-user.enable = true;
   reale-ites-user.enable = true;
+  users.work.realeItes.env = env;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -90,9 +93,9 @@ in
     packages = with pkgs; [
       google-chrome
       vscode
-    ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ])
-      ++ (lib.optionals (shell == "zsh" || shell == "default") [ zsh-powerlevel10k ])
-      ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
+    ] ++ (lib.optionals (cfg.env.terminal == "kitty" || cfg.env.terminal == "default") [ kitty ])
+      ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
+      ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
   };
 
   home-manager = {
