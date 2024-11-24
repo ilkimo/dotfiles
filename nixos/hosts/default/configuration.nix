@@ -18,6 +18,7 @@ in
       ./hardware-configuration.nix
       ../../modules/users/personal/main-user.nix
       ../../modules/users/work/reale-ites.nix
+      ../../modules/nvidia/drivers.nix
     ];
 
   # BEGIN handle users ----------------------------------
