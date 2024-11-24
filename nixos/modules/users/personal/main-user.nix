@@ -50,7 +50,7 @@ in
     
     home-manager = {
       # also pass inputs to home-manager modules
-      extraSpecialArgs = { inherit inputs; };
+      extraSpecialArgs = { inherit inputs env; };
       users = {
         ${cfg.userName} = import ./home.nix;
       };
