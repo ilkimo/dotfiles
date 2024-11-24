@@ -100,7 +100,7 @@ in
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs terminal; };
+    extraSpecialArgs = { inherit inputs cfg.env.terminal; };
     users = {
       "il_kimo" = import ./home.nix;
     };
