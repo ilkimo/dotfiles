@@ -5,9 +5,11 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  vibes = true;
-  terminal = "kitty";  # Set a terminal (some options are {kitty=default, add here})
-  shell = "zsh";
+  env = {
+    vibes = true;
+    terminal = "kitty"; # Set a terminal (some options are {kitty=default, add here})
+    shell = "zsh";
+  };
 in
 
 {
@@ -19,7 +21,9 @@ in
     ];
 
   main-user.enable = true;
+  main-user.env = env;
   reale-ites-user.enable = true;
+  reale-ites-user.env = env;
 
   # Use the systemd-boot EFI boot loader.
   # boot.loader.systemd-boot.enable = true;
@@ -78,18 +82,6 @@ in
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.il_kimo = {
-    isNormalUser = true;
-    extraGroups = ["dialout" "bluetooth" "networkmanager" ]; # To enable ‘sudo’ for the user add the 'wheel' group.
-    packages = with pkgs; [
-      google-chrome
-      vscode
-    ] ++ (lib.optionals (terminal == "kitty" || terminal == "default") [ kitty ])
-      ++ (lib.optionals (shell == "zsh" || shell == "default") [ zsh-powerlevel10k ])
-      ++ (lib.optionals (vibes == true) [ tree sl cmatrix ]);
   };
 
   home-manager = {
