@@ -44,7 +44,7 @@ in
     
     home-manager = {
       # also pass inputs to home-manager modules
-      extraSpecialArgs = { extraSpecialArgs }
+      extraSpecialArgs = { inherit extraSpecialArgs; };
       users = {
         ${cfg.userName} = import ./home.nix;
       };
