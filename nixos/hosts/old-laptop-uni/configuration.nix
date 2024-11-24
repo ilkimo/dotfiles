@@ -16,6 +16,7 @@ in
       ./hardware-configuration.nix
       ../../modules/users/personal/main-user.nix
       ../../modules/users/work/reale-ites.nix
+      ../../modules/nvidia/drivers.nix
     ];
 
   # BEGIN handle users ----------------------------------
@@ -37,18 +38,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # nvidia drivers
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable = true;
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
 
   # Allow all unfree packages (I tried this for the nvidia drivers, maybe restricting to specific packages is a good idea)
   nixpkgs.config.allowUnfree = true;
