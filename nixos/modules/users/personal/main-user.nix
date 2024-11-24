@@ -14,7 +14,13 @@ in
        username
       '';
     };
-    
+
+    env = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = {};
+      description = "Environment configuration variables";
+    };
+ 
     extraSpecialArgs = lib.mkOption {
       type = lib.types.attrsOf lib.types.anything;
       default = {};
