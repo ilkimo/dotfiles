@@ -81,14 +81,6 @@ in
     pulse.enable = true;
   };
 
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs env; };
-    users = {
-      "il_kimo" = import ./home.nix;
-    };
-  };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
