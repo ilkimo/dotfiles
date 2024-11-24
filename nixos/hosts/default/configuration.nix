@@ -19,6 +19,7 @@ in
       ../../modules/users/personal/main-user.nix
       ../../modules/users/work/reale-ites.nix
       ../../modules/nvidia/drivers.nix
+      ../../modules/containerization/docker.nix
     ];
 
   # BEGIN handle users ----------------------------------
@@ -58,18 +59,6 @@ in
 
   # Allow all unfree packages (I tried this for the nvidia drivers, maybe restricting to specific packages is a good idea)
   nixpkgs.config.allowUnfree = true;
-
-  # Docker configurations
-  virtualisation = {
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
-  };
 
   networking.hostName = "default"; # Define your hostname.
   # Pick only one of the below networking options.
