@@ -14,7 +14,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/users/main-user.nix
+      ../../modules/users/personal/main-user.nix
       ../../modules/users/work/reale-ites.nix
     ];
 

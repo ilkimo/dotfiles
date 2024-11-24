@@ -41,5 +41,13 @@ in
         ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
         ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
     };
+    
+    home-manager = {
+      # also pass inputs to home-manager modules
+      extraSpecialArgs = { inherit inputs; };
+      users = {
+        ${cfg.userName} = import ./home.nix;
+      };
+    };
   };
 }

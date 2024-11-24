@@ -16,7 +16,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/users/main-user.nix
+      ../../modules/users/personal/main-user.nix
       ../../modules/users/work/reale-ites.nix
     ];
 
@@ -82,14 +82,6 @@ in
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-  };
-
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs terminal; };
-    users = {
-      "il_kimo" = import ./home.nix;
-    };
   };
 
   # List packages installed in system profile. To search, run:
