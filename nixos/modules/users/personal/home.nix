@@ -69,7 +69,7 @@
       source = ../../../../kitty;
       recursive = true;
     };
-    ".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
+    #".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
   };
 
 # Home Manager can also manage your environment variables through
