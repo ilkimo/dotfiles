@@ -52,6 +52,11 @@
     #  source = ../../../kitty;
     #  recursive = true;
     #};
+    
+    ".config/hyprland" = {
+      source = ../../../../hyprland;
+      recursive = true;
+    };
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
