@@ -45,7 +45,7 @@
     # ".screenrc".source = dotfiles/screenrc;
 
     # Prova Kimo
-    ".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
+    #".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
     # Conditionally manage the kitty config files only if kitty is enabled
 
     #".config/kitty" = {
@@ -69,6 +69,7 @@
       source = ../../../../kitty;
       recursive = true;
     };
+    ".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
   };
 
 # Home Manager can also manage your environment variables through
