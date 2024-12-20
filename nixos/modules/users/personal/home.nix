@@ -44,9 +44,11 @@
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
 
-    # Prova Kimo
-    #".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
-    # Conditionally manage the kitty config files only if kitty is enabled
+    # # You can also set the file content immediately.
+    # ".gradle/gradle.properties".text = ''
+    #   org.gradle.console=verbose
+    #   org.gradle.daemon.idletimeout=3600000
+    # '';
 
     ".config/kitty" = {
       source = ../../../../kitty;
@@ -57,12 +59,6 @@
       source = ../../../../hyprland;
       recursive = true;
     };
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
 # Home Manager can also manage your environment variables through
