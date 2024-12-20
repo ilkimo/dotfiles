@@ -55,7 +55,7 @@
       recursive = true;
     };
     
-    ".config/hyprland" = {
+    ".config/hypr" = {
       source = ../../../../hyprland;
       recursive = true;
     };
