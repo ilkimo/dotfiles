@@ -48,28 +48,21 @@
     #".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
     # Conditionally manage the kitty config files only if kitty is enabled
 
-    #".config/kitty" = {
-    #  source = ../../../kitty;
-    #  recursive = true;
-    #};
+    ".config/kitty" = {
+      source = ../../../../kitty;
+      recursive = true;
+    };
     
-    #".config/hyprland" = {
-    #  source = ../../../../hyprland;
-    #  recursive = true;
-    #};
+    ".config/hyprland" = {
+      source = ../../../../hyprland;
+      recursive = true;
+    };
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  } // # Update option (this is a concat, if the second argument gets evaluated)
-  lib.mkIf (env.terminal == "kitty" || env.terminal == "default") {
-    ".config/kitty" = {
-      source = ../../../../kitty;
-      recursive = true;
-    };
-    #".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
   };
 
 # Home Manager can also manage your environment variables through
