@@ -45,7 +45,7 @@
     # ".screenrc".source = dotfiles/screenrc;
 
     # Prova Kimo
-    # ".config/provola.txt".source = ../../../scripts/ranker.sh;
+    ".config/hyprland/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
     # Conditionally manage the kitty config files only if kitty is enabled
 
     #".config/kitty" = {
@@ -53,10 +53,10 @@
     #  recursive = true;
     #};
     
-    ".config/hyprland" = {
-      source = ../../../../hyprland;
-      recursive = true;
-    };
+    #".config/hyprland" = {
+    #  source = ../../../../hyprland;
+    #  recursive = true;
+    #};
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
