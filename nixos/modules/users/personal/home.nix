@@ -57,8 +57,7 @@
     
     # Hyprland
     ".config/hypr/hyprland.conf".source = ../../../../hyprland/hyprland.conf; # Point to specific file
-    ".config/hypr/monitors.conf".source = ../../../../hyprland/hosts-custom-configs/magumba.conf; # Ensure proper reference
-
+    ".config/hypr/monitors.conf".source = ../../../../hyprland/hosts-custom-configs/${env.hostname}.conf;
 };
 
 # Home Manager can also manage your environment variables through
