@@ -6,6 +6,7 @@
 
 let
   env = {
+    hostname = "magumba";
     vibes = true;
     terminal = "kitty"; # Set a terminal (some options are {kitty=default, add here})
     shell = "zsh";
