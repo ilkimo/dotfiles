@@ -62,7 +62,7 @@ in
   # Allow all unfree packages (I tried this for the nvidia drivers, maybe restricting to specific packages is a good idea)
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = "default"; # Define your hostname.
+  networking.hostName = env.hostname;
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
