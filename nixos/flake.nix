@@ -15,7 +15,7 @@
       magumba = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ./hosts/default/configuration.nix
+          ./hosts/magumba/configuration.nix
           inputs.home-manager.nixosModules.default
           ./modules/graphic-session/wayland/hyprlnd.nix
           ./modules/graphic-session/display-managers/sddm.nix
