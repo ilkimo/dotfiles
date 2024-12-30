@@ -56,7 +56,7 @@
     };
     
     # Hyprland
-    ".config/hypr/hyprland.conf".source = ../../../../hyprland/hyprland.conf; # Point to specific file
+    ".config/hypr/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
     ".config/hypr/monitors.conf".source = ../../../../hyprland/hosts-custom-configs/${env.hostname}.conf;
 };
 
