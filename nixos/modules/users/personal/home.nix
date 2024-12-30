@@ -60,7 +60,7 @@
       recursive = false; # because I want to specify hosts specific configs in the inner dir
     };
 
-    ".config/hypr/monitors.conf".source = "../../../../hyprland/hosts-custom-configs/magumba.conf";
+    ".config/hypr/monitors.conf".source = ../../../../hyprland/hosts-custom-configs/magumba.conf;
 };
 
 # Home Manager can also manage your environment variables through
