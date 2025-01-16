@@ -62,11 +62,12 @@
     # Zsh
     ".p10k.zsh".source = ../../../../terminal-stuff/shells/zsh/.p10k.zsh;
     ".zshrc.zni".source = ../../../../terminal-stuff/shells/zsh/.zshrc.zni;
-    ".zshrc.pre-oh-my-zsh".source = ../../../../terminal-stuff/shells/zsh/.zshrc;
     ".zshrc".source = ../../../../terminal-stuff/shells/zsh/.zshrc;
     # Oh-my.zsh
-    ".oh-my.zsh".source = ../../../../terminal-stuff/shells/zsh/.oh-my.zsh;
-    ".oh-my-zsh".source = ../../../../terminal-stuff/shells/zsh/ohmyzsh;
+    ".oh-my-zsh" = {
+      source = ../../../../terminal-stuff/shells/zsh/ohmyzsh;
+      recursive = true;
+    };
 };
 
 # Home Manager can also manage your environment variables through
