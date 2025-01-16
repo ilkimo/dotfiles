@@ -58,6 +58,15 @@
     # Hyprland
     ".config/hypr/hyprland.conf".source = ../../../../hyprland/hyprland.conf;
     ".config/hypr/monitors.conf".source = ../../../../hyprland/hosts-custom-configs/${env.hostname}.conf;
+
+    # Zsh
+    ".p10k.zsh".source = ../../../../terminal-stuff/shells/zsh/.p10k.zsh;
+    ".zshrc.zni".source = ../../../../terminal-stuff/shells/zsh/.zshrc.zni;
+    ".zshrc.pre-oh-my-zsh".source = ../../../../terminal-stuff/shells/zsh/.zshrc;
+    ".zshrc".source = ../../../../terminal-stuff/shells/zsh/.zshrc;
+    # Oh-my.zsh
+    ".oh-my.zsh".source = ../../../../terminal-stuff/shells/zsh/.oh-my.zsh;
+    ".oh-my-zsh".source = ../../../../terminal-stuff/shells/zsh/ohmyzsh;
 };
 
 # Home Manager can also manage your environment variables through
