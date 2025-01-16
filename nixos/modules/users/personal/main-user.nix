@@ -43,6 +43,7 @@ in
       packages = with pkgs; [
         google-chrome
         vscode
+        zoxide # for zoxide you also need to do stuff in the .zshrc
       ] ++ (lib.optionals (cfg.env.terminal == "kitty" || cfg.env.terminal == "default") [ kitty ])
         ++ (lib.optionals (cfg.env.shell == "zsh" || cfg.env.shell == "default") [ zsh-powerlevel10k ])
         ++ (lib.optionals (cfg.env.vibes == true) [ tree sl cmatrix ]);
