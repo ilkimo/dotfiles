@@ -63,7 +63,7 @@
     ".p10k.zsh".source = ../../../../terminal-stuff/shells/zsh/.p10k.zsh;
     ".zshrc.zni".source = ../../../../terminal-stuff/shells/zsh/.zshrc.zni;
     ".zshrc".source = ../../../../terminal-stuff/shells/zsh/.zshrc;
-    ".aliases.zsh".source = ../../../../secrets/.bash_aliases
+    ".aliases.zsh".source = ../../../../secrets/.bash_aliases;
     # Oh-my.zsh
     ".oh-my-zsh" = {
       source = ../../../../terminal-stuff/shells/zsh/ohmyzsh;
